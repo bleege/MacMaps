@@ -5,15 +5,19 @@
 //  Created by Brad Leege on 11/30/21.
 //
 
+import MapKit
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State
+    var mapRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 43.07472, longitude: -89.38421),
+                                       span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+    
     var body: some View {
-        GeometryReader { geometry in
-            VStack {
-                Text("Hello, world!")
-                    .padding()
-            }.frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
+        NavigationView {
+            Text("Navigation Items")
+            Map(coordinateRegion: $mapRegion)
         }
     }
 }

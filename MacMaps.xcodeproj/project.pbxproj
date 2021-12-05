@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A20F478E275B466A00ED7D81 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A20F478D275B466A00ED7D81 /* MapKit.framework */; platformFilter = maccatalyst; };
 		A2E610D82757304B0061FB22 /* MacMapsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E610D72757304B0061FB22 /* MacMapsApp.swift */; };
 		A2E610DA2757304B0061FB22 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E610D92757304B0061FB22 /* ContentView.swift */; };
 		A2E610DC2757304D0061FB22 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2E610DB2757304D0061FB22 /* Assets.xcassets */; };
@@ -14,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A20F478D275B466A00ED7D81 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		A2E610D42757304B0061FB22 /* MacMaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacMaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2E610D72757304B0061FB22 /* MacMapsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacMapsApp.swift; sourceTree = "<group>"; };
 		A2E610D92757304B0061FB22 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -27,17 +29,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A20F478E275B466A00ED7D81 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A20F478C275B466A00ED7D81 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A20F478D275B466A00ED7D81 /* MapKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A2E610CB2757304B0061FB22 = {
 			isa = PBXGroup;
 			children = (
 				A2E610D62757304B0061FB22 /* MacMaps */,
 				A2E610D52757304B0061FB22 /* Products */,
+				A20F478C275B466A00ED7D81 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
