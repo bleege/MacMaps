@@ -14,7 +14,15 @@ struct AppleMapsView: View {
     private var viewModel = AppleMapsViewModel()
 
     var body: some View {
-        Map(coordinateRegion: $viewModel.mapRegion)
+        Map(coordinateRegion: $viewModel.mapRegion).toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Menu("Map Type") {
+                    ForEach(viewModel.mapTypes) { mapType in
+                        Button(mapType.name, action: { viewModel.selectedMapType = mapType })
+                    }
+                }
+            }
+        }
     }
 
 }
