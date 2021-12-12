@@ -8,16 +8,19 @@
 import Combine
 import MapKit
 
-class AppleMapsViewModel: ObservableObject {
+class AppleMapsContentViewModel: ObservableObject {
     
     @Published
     var mapRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 43.07472, longitude: -89.38421),
                                        span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
     
     @Published
-    var selectedMapType = MKMapType.standard
+    var selectedMapType = MKMapType.standard {
+        didSet {
+            print("New mapType = \(selectedMapType.rawValue)")
+        }
+    }
 
     let mapTypes: [MKMapType] = [.standard, .satellite, .hybrid, .satelliteFlyover, .hybridFlyover, .mutedStandard]
 
-    
 }

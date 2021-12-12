@@ -8,12 +8,13 @@
 import MapKit
 import SwiftUI
 
-struct AppleMapsView: View {
+struct AppleMapsContentView: View {
 
     @ObservedObject
-    private var viewModel = AppleMapsViewModel()
+    private var viewModel = AppleMapsContentViewModel()
 
     var body: some View {
+        // TODO: Override Map in order to use MKMapView functionality
         Map(coordinateRegion: $viewModel.mapRegion).toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Menu("Map Type") {
@@ -29,6 +30,6 @@ struct AppleMapsView: View {
 
 struct AppleMapsView_Previews: PreviewProvider {
     static var previews: some View {
-        AppleMapsView()
+        AppleMapsContentView()
     }
 }
