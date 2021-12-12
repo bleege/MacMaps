@@ -5,6 +5,7 @@
 //  Created by Brad Leege on 12/5/21.
 //
 
+import Combine
 import MapKit
 import SwiftUI
 
@@ -12,10 +13,10 @@ struct AppleMapsContentView: View {
 
     @ObservedObject
     private var viewModel = AppleMapsContentViewModel()
-
+    private let appleMapView = AppleMapsView()
+    
     var body: some View {
-        // TODO: Override Map in order to use MKMapView functionality
-        Map(coordinateRegion: $viewModel.mapRegion).toolbar {
+        appleMapView.toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Menu("Map Type") {
                     ForEach(viewModel.mapTypes) { mapType in
@@ -24,8 +25,14 @@ struct AppleMapsContentView: View {
                 }
             }
         }
+        .onReceive(viewModel.$mapRegion, perform: { region in
+            appleMapView.mapView.region = region
+        })
+        .onReceive(viewModel.$selectedMapType, perform: { mapType in
+            appleMapView.mapView.mapType = mapType
+        })
     }
-
+    
 }
 
 struct AppleMapsView_Previews: PreviewProvider {
