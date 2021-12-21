@@ -16,6 +16,9 @@
 		A2E610DA2757304B0061FB22 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E610D92757304B0061FB22 /* ContentView.swift */; };
 		A2E610DC2757304D0061FB22 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2E610DB2757304D0061FB22 /* Assets.xcassets */; };
 		A2E610DF2757304D0061FB22 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2E610DE2757304D0061FB22 /* Preview Assets.xcassets */; };
+		A2F957482772036E005FD53B /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F957472772036E005FD53B /* LocationManager.swift */; };
+		A2F9574A2772038C005FD53B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2F957492772038C005FD53B /* CoreLocation.framework */; platformFilter = maccatalyst; };
+		A2F9574C27720507005FD53B /* LocationManger+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F9574B27720507005FD53B /* LocationManger+Delegates.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +33,9 @@
 		A2E610DB2757304D0061FB22 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A2E610DE2757304D0061FB22 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A2E610E02757304D0061FB22 /* MacMaps.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacMaps.entitlements; sourceTree = "<group>"; };
+		A2F957472772036E005FD53B /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		A2F957492772038C005FD53B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		A2F9574B27720507005FD53B /* LocationManger+Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationManger+Delegates.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2F9574A2772038C005FD53B /* CoreLocation.framework in Frameworks */,
 				A20F478E275B466A00ED7D81 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -47,6 +54,7 @@
 		A20F478C275B466A00ED7D81 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A2F957492772038C005FD53B /* CoreLocation.framework */,
 				A20F478D275B466A00ED7D81 /* MapKit.framework */,
 			);
 			name = Frameworks;
@@ -81,6 +89,8 @@
 			isa = PBXGroup;
 			children = (
 				A2A965B927646C9C00EF20E8 /* Extensions */,
+				A2F957472772036E005FD53B /* LocationManager.swift */,
+				A2F9574B27720507005FD53B /* LocationManger+Delegates.swift */,
 				A2E610D72757304B0061FB22 /* MacMapsApp.swift */,
 				A2E610D92757304B0061FB22 /* ContentView.swift */,
 				A207B4DE275DD0C600BE3E58 /* AppleMapsContentView.swift */,
@@ -174,7 +184,9 @@
 				A2A965BB27646CBB00EF20E8 /* MKMapType+Extensions.swift in Sources */,
 				A2E610DA2757304B0061FB22 /* ContentView.swift in Sources */,
 				A207B4DF275DD0C600BE3E58 /* AppleMapsContentView.swift in Sources */,
+				A2F957482772036E005FD53B /* LocationManager.swift in Sources */,
 				A207B4E1275DD0F800BE3E58 /* AppleMapsContentViewModel.swift in Sources */,
+				A2F9574C27720507005FD53B /* LocationManger+Delegates.swift in Sources */,
 				A2C81E522765C1C9005EBB73 /* AppleMapsView.swift in Sources */,
 				A2E610D82757304B0061FB22 /* MacMapsApp.swift in Sources */,
 			);
