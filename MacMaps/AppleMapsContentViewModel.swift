@@ -23,4 +23,12 @@ class AppleMapsContentViewModel: ObservableObject {
 
     let mapTypes: [MKMapType] = [.standard, .satellite, .hybrid, .satelliteFlyover, .hybridFlyover, .mutedStandard]
 
+    private var cancellables = Set<AnyCancellable>()
+    
+    init() {
+        LocationManager.shared.currentLocation.sink(receiveValue: { [weak self] location in
+            self?.mapRegion.center = location.coordinate
+        }).store(in: &cancellables)
+    }
+    
 }

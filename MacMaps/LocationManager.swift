@@ -20,8 +20,15 @@ class LocationManager: NSObject {
     private override init() {
         super.init()
         manger.delegate = self
-        manger.requestWhenInUseAuthorization()
-        manger.startUpdatingLocation()
+    }
+
+    func startLocationMonitoring() {
+        if CLLocationManager.locationServicesEnabled() {
+            print("locationServicesEnabled == true")
+            manger.requestWhenInUseAuthorization()
+        } else {
+            print("locationServicesEnabled == false")
+        }
     }
     
 }

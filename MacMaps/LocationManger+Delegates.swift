@@ -14,4 +14,10 @@ extension LocationManager: CLLocationManagerDelegate {
         currentLocation.send(locations[0])
     }
     
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        if manager.authorizationStatus == .authorized {
+            manager.startUpdatingLocation()
+        }
+    }
+    
 }

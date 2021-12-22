@@ -24,6 +24,11 @@ struct AppleMapsContentView: View {
                     }
                 }
             }
+            ToolbarItem(placement: .primaryAction) {
+                Button("Location") {
+                    LocationManager.shared.startLocationMonitoring()
+                }
+            }
         }
         .onReceive(viewModel.$mapRegion, perform: { region in
             appleMapView.mapView.region = region
