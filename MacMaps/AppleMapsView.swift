@@ -12,6 +12,8 @@ struct AppleMapsView: NSViewRepresentable {
     
     let mapView: MKMapView = {
         let mapView = MKMapView()
+        mapView.showsZoomControls = true
+        mapView.showsUserLocation = true
         mapView.translatesAutoresizingMaskIntoConstraints = false
         return mapView
     }()
