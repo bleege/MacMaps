@@ -25,8 +25,10 @@ struct AppleMapsContentView: View {
                 }
             }
             ToolbarItem(placement: .primaryAction) {
-                Button("Location") {
+                Button(action: {
                     LocationManager.shared.startLocationMonitoring()
+                }) {
+                    Image(systemName: "location.fill")
                 }
             }
         }
