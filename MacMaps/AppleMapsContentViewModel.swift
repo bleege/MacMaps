@@ -19,9 +19,11 @@ class AppleMapsContentViewModel: ObservableObject {
     
     @Published
     var locationButtonImageName = "location.fill"
+    
+    @Published
+    var showUserLocation = true
 
     let mapTypes: [MKMapType] = [.standard, .satellite, .hybrid, .satelliteFlyover, .hybridFlyover, .mutedStandard]
-
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -33,8 +35,10 @@ class AppleMapsContentViewModel: ObservableObject {
         LocationManager.shared.$isMonitoringLocation.sink(receiveValue: { [weak self] isMonitoring in
             if isMonitoring {
                 self?.locationButtonImageName = "location.fill"
+                self?.showUserLocation = true
             } else {
                 self?.locationButtonImageName = "location.slash.fill"
+                self?.showUserLocation = false
             }
         }).store(in: &cancellables)
     }

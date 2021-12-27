@@ -38,6 +38,9 @@ struct AppleMapsContentView: View {
         .onReceive(viewModel.$selectedMapType, perform: { mapType in
             appleMapView.mapView.mapType = mapType
         })
+        .onReceive(viewModel.$showUserLocation, perform: { showUserLocation in
+            appleMapView.mapView.showsUserLocation = showUserLocation
+        })
     }
     
 }
