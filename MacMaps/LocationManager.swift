@@ -13,22 +13,34 @@ class LocationManager: NSObject {
     
     public static let shared = LocationManager()
     
-    private let manger = CLLocationManager()
+    private let manager = CLLocationManager()
     
     var currentLocation = CurrentValueSubject<CLLocation, Never>(CLLocation(latitude: 0, longitude: 0))
+
+    @Published
+    var isMonitoringLocation = false
     
     private override init() {
         super.init()
-        manger.delegate = self
+        manager.delegate = self
     }
 
     func startLocationMonitoring() {
+        print("startLocationMonitoring")
         if CLLocationManager.locationServicesEnabled() {
             print("locationServicesEnabled == true")
-            manger.requestWhenInUseAuthorization()
+            manager.requestWhenInUseAuthorization()
+            isMonitoringLocation = true
         } else {
             print("locationServicesEnabled == false")
+            isMonitoringLocation = false
         }
+    }
+    
+    func stopLocationMonitoring() {
+        print("stopLocationMonitoring")
+        manager.stopUpdatingLocation()
+        isMonitoringLocation = false
     }
     
 }
