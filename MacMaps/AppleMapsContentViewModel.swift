@@ -6,6 +6,7 @@
 //
 
 import Combine
+import CoreLocation
 import MapKit
 
 class AppleMapsContentViewModel: ObservableObject {
@@ -26,6 +27,8 @@ class AppleMapsContentViewModel: ObservableObject {
     let mapTypes: [MKMapType] = [.standard, .satellite, .hybrid, .satelliteFlyover, .hybridFlyover, .mutedStandard]
     
     private var cancellables = Set<AnyCancellable>()
+    
+    private let geocoder = CLGeocoder()
     
     init() {
         LocationManager.shared.currentLocation.sink(receiveValue: { [weak self] location in
@@ -51,4 +54,17 @@ class AppleMapsContentViewModel: ObservableObject {
         }
     }
 
+    func searchForLocation(_ query: String) {
+        
+        geocoder.geocodeAddressString(query) { placemark, error in
+            if let error = error {
+                print("Error geocoding: \(error)")
+                return
+            }
+            
+            print("placemark(s) found = \(placemark)")
+            
+        }
+        
+    }
 }
