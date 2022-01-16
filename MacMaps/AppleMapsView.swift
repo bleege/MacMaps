@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MapKit
+import CoreLocation
 
 struct AppleMapsView: NSViewRepresentable {
     
@@ -16,6 +17,34 @@ struct AppleMapsView: NSViewRepresentable {
         mapView.translatesAutoresizingMaskIntoConstraints = false
         return mapView
     }()
+    
+    let mapViewDelegate = AppleMapsViewDelegate()
+        
+    init() {
+        // Workaround for Structs
+        mapView.delegate = mapViewDelegate
+    }
+    
+    // MARK: - Map Utilities
+    
+    func showMarker(_ placemark: CLPlacemark) {
+        guard let coordinate = placemark.location?.coordinate else { return }
+
+        let nonUserAnnotations = mapView.annotations.filter({
+            if $0 is MKUserLocation {
+                return false
+            }
+            return true
+        })
+        mapView.removeAnnotations(nonUserAnnotations)
+        
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        mapView.addAnnotation(annotation)
+    }
+    
+    
+    // MARK: - NSViewRepresentable
     
     func makeNSView(context: Context) -> some NSView {
         let view = NSView()
@@ -32,5 +61,26 @@ struct AppleMapsView: NSViewRepresentable {
     }
     
     func updateNSView(_ nsView: NSViewType, context: Context) { }
+    
+}
+
+class AppleMapsViewDelegate: NSObject {}
+
+extension AppleMapsViewDelegate: MKMapViewDelegate {
+
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation {
+            return nil
+        }
+        
+        var pin = mapView.dequeueReusableAnnotationView(withIdentifier: "Pin")
+        
+        if (pin == nil) {
+            pin = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "Pin")
+        }
+        pin?.displayPriority = .required
+        
+        return pin
+    }
     
 }

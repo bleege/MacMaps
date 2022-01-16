@@ -32,7 +32,14 @@ struct AppleMapsContentView: View {
                 }
             }
         }
-        .searchable(text: $viewModel.searchQuery, prompt: "Search...")
+        .searchable(text: $viewModel.searchQuery,
+                    prompt: "Search...",
+                    suggestions: {
+            ForEach(viewModel.searchSuggestions, id: \.self) { suggestion in
+                Text(suggestion.name ?? "")
+                    .searchCompletion(suggestion.name ?? "")
+            }
+        })
         .onSubmit(of: .search) {
             viewModel.searchForLocation()
         }
@@ -44,6 +51,10 @@ struct AppleMapsContentView: View {
         })
         .onReceive(viewModel.$showUserLocation, perform: { showUserLocation in
             appleMapView.mapView.showsUserLocation = showUserLocation
+        })
+        .onReceive(viewModel.$searchResultPlacemark, perform: { placemark in
+            guard let placemark = placemark else { return }
+            appleMapView.showMarker(placemark)
         })
     }
     

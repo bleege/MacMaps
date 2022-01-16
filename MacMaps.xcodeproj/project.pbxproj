@@ -27,6 +27,7 @@
 		A207B4E0275DD0F800BE3E58 /* AppleMapsContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMapsContentViewModel.swift; sourceTree = "<group>"; };
 		A20F478D275B466A00ED7D81 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		A21932F22773A39E003B5ABA /* Combine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Combine.framework; path = System/Library/Frameworks/Combine.framework; sourceTree = SDKROOT; };
+		A21EEF502793C21B001DEF35 /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
 		A2A965BA27646CBB00EF20E8 /* MKMapType+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapType+Extensions.swift"; sourceTree = "<group>"; };
 		A2C81E512765C1C9005EBB73 /* AppleMapsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMapsView.swift; sourceTree = "<group>"; };
 		A2E610D42757304B0061FB22 /* MacMaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacMaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -57,6 +58,7 @@
 		A20F478C275B466A00ED7D81 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A21EEF502793C21B001DEF35 /* Intents.framework */,
 				A21932F22773A39E003B5ABA /* Combine.framework */,
 				A2F957492772038C005FD53B /* CoreLocation.framework */,
 				A20F478D275B466A00ED7D81 /* MapKit.framework */,

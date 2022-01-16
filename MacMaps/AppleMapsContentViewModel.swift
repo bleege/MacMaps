@@ -26,6 +26,12 @@ class AppleMapsContentViewModel: ObservableObject {
     
     @Published
     var searchQuery = ""
+    
+    @Published
+    var searchSuggestions = [CLPlacemark]()
+    
+    @Published
+    var searchResultPlacemark: CLPlacemark?
 
     let mapTypes: [MKMapType] = [.standard, .satellite, .hybrid, .satelliteFlyover, .hybridFlyover, .mutedStandard]
     
@@ -61,13 +67,26 @@ class AppleMapsContentViewModel: ObservableObject {
         
         if searchQuery.isEmpty { return }
         
-        geocoder.geocodeAddressString(searchQuery) { placemark, error in
+        print("searchQuery = \(searchQuery)")
+        
+        geocoder.geocodeAddressString(searchQuery) { [weak self] placemarks, error in
             if let error = error {
                 print("Error geocoding: \(error)")
                 return
             }
             
-            print("placemark(s) found = \(placemark)")
+            print("placemark(s) found = \(String(describing: placemarks))")
+            if let placemarks = placemarks, placemarks.count > 1 {
+                self?.searchSuggestions.removeAll()
+                self?.searchSuggestions.append(contentsOf: placemarks)
+                return
+            } else {
+                self?.searchSuggestions.removeAll()
+            }
+            
+            if let placemark = placemarks?[0] {
+                self?.searchResultPlacemark = placemark
+            }
             
         }
         
