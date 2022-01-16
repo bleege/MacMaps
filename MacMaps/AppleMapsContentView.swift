@@ -14,9 +14,6 @@ struct AppleMapsContentView: View {
     @ObservedObject
     private var viewModel = AppleMapsContentViewModel()
     private let appleMapView = AppleMapsView()
-
-    @State
-    private var query = ""
     
     var body: some View {
         appleMapView.toolbar {
@@ -35,9 +32,9 @@ struct AppleMapsContentView: View {
                 }
             }
         }
-        .searchable(text: $query, prompt: "Search...")
-        .onChange(of: query) { newQuery in
-            viewModel.searchForLocation(query)
+        .searchable(text: $viewModel.searchQuery, prompt: "Search...")
+        .onSubmit(of: .search) {
+            viewModel.searchForLocation()
         }
         .onReceive(viewModel.$mapRegion, perform: { region in
             appleMapView.mapView.region = region

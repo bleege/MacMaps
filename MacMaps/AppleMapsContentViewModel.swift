@@ -23,6 +23,9 @@ class AppleMapsContentViewModel: ObservableObject {
     
     @Published
     var showUserLocation = true
+    
+    @Published
+    var searchQuery = ""
 
     let mapTypes: [MKMapType] = [.standard, .satellite, .hybrid, .satelliteFlyover, .hybridFlyover, .mutedStandard]
     
@@ -54,9 +57,11 @@ class AppleMapsContentViewModel: ObservableObject {
         }
     }
 
-    func searchForLocation(_ query: String) {
+    func searchForLocation() {
         
-        geocoder.geocodeAddressString(query) { placemark, error in
+        if searchQuery.isEmpty { return }
+        
+        geocoder.geocodeAddressString(searchQuery) { placemark, error in
             if let error = error {
                 print("Error geocoding: \(error)")
                 return
