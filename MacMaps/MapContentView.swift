@@ -9,17 +9,17 @@ import Combine
 import MapKit
 import SwiftUI
 
-struct AppleMapsContentView: View {
+struct MapContentView: View {
 
     @ObservedObject
-    private var viewModel = AppleMapsContentViewModel()
+    private var viewModel = MapContentViewModel()
     private let appleMapView = AppleMapsView()
     
     var body: some View {
         appleMapView.toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Menu("Map Type") {
-                    ForEach(viewModel.mapTypes) { mapType in
+                    ForEach(viewModel.appleMapsTypes) { mapType in
                         Button(mapType.name, action: { viewModel.selectedMapType = mapType })
                     }
                 }
@@ -62,6 +62,6 @@ struct AppleMapsContentView: View {
 
 struct AppleMapsView_Previews: PreviewProvider {
     static var previews: some View {
-        AppleMapsContentView()
+        MapContentView()
     }
 }

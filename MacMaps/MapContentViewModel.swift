@@ -9,7 +9,7 @@ import Combine
 import CoreLocation
 import MapKit
 
-class AppleMapsContentViewModel: ObservableObject {
+class MapContentViewModel: ObservableObject {
     
     @Published
     var mapRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 43.07472, longitude: -89.38421),
@@ -33,7 +33,7 @@ class AppleMapsContentViewModel: ObservableObject {
     @Published
     var searchResultPlacemark: CLPlacemark?
 
-    let mapTypes: [MKMapType] = [.standard, .satellite, .hybrid, .satelliteFlyover, .hybridFlyover, .mutedStandard]
+    let appleMapsTypes: [MKMapType] = [.standard, .satellite, .hybrid, .satelliteFlyover, .hybridFlyover, .mutedStandard]
     
     private var cancellables = Set<AnyCancellable>()
     
