@@ -63,24 +63,3 @@ struct AppleMapsView: NSViewRepresentable {
     func updateNSView(_ nsView: NSViewType, context: Context) { }
     
 }
-
-class AppleMapsViewDelegate: NSObject {}
-
-extension AppleMapsViewDelegate: MKMapViewDelegate {
-
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if annotation is MKUserLocation {
-            return nil
-        }
-        
-        var pin = mapView.dequeueReusableAnnotationView(withIdentifier: "Pin")
-        
-        if (pin == nil) {
-            pin = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "Pin")
-        }
-        pin?.displayPriority = .required
-        
-        return pin
-    }
-    
-}
