@@ -14,8 +14,11 @@ struct MapContentView: View {
     @ObservedObject
     private var viewModel = MapContentViewModel()
     private let appleMapView = AppleMapsView()
+    private let mapboxMapView = MapboxMapsView()
     
     var body: some View {
+        mapboxMapView
+/*
         appleMapView.toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Menu("Map Type") {
@@ -56,6 +59,7 @@ struct MapContentView: View {
             guard let placemark = placemark else { return }
             appleMapView.showMarker(placemark)
         })
+ */
     }
     
 }
