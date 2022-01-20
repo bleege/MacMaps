@@ -68,6 +68,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A2380F93279916A200ED2282 /* MapVendors */ = {
+			isa = PBXGroup;
+			children = (
+				A2C81E512765C1C9005EBB73 /* AppleMapsView.swift */,
+				A2C4DCD027952D1100975815 /* AppleMapsView+Delegates.swift */,
+			);
+			path = MapVendors;
+			sourceTree = "<group>";
+		};
 		A2A965B927646C9C00EF20E8 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -97,14 +106,13 @@
 			isa = PBXGroup;
 			children = (
 				A2A965B927646C9C00EF20E8 /* Extensions */,
+				A2380F93279916A200ED2282 /* MapVendors */,
 				A2F957472772036E005FD53B /* LocationManager.swift */,
 				A2F9574B27720507005FD53B /* LocationManger+Delegates.swift */,
 				A2E610D72757304B0061FB22 /* MacMapsApp.swift */,
 				A2E610D92757304B0061FB22 /* ContentView.swift */,
 				A207B4DE275DD0C600BE3E58 /* MapContentView.swift */,
 				A207B4E0275DD0F800BE3E58 /* MapContentViewModel.swift */,
-				A2C81E512765C1C9005EBB73 /* AppleMapsView.swift */,
-				A2C4DCD027952D1100975815 /* AppleMapsView+Delegates.swift */,
 				A2E610DB2757304D0061FB22 /* Assets.xcassets */,
 				A2E610E02757304D0061FB22 /* MacMaps.entitlements */,
 				A2E610DD2757304D0061FB22 /* Preview Content */,
