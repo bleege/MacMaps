@@ -16,10 +16,16 @@ struct MapContentView: View {
     private let appleMapView = AppleMapsView()
     private let mapboxMapView = MapboxMapsView()
     
+    
     var body: some View {
-        mapboxMapView
-/*
-        appleMapView.toolbar {
+        HStack {
+            if viewModel.mapVendor == .appleMaps {
+                appleMapView
+            } else if viewModel.mapVendor == .mapbox {
+                mapboxMapView
+            }
+        }
+        .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Menu("Map Type") {
                     ForEach(viewModel.appleMapsTypes) { mapType in
@@ -59,7 +65,6 @@ struct MapContentView: View {
             guard let placemark = placemark else { return }
             appleMapView.showMarker(placemark)
         })
- */
     }
     
 }

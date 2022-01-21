@@ -11,6 +11,14 @@ import MapKit
 
 class MapContentViewModel: ObservableObject {
     
+    enum MapVendor: String, CaseIterable {
+        case appleMaps = "Apple Maps"
+        case mapbox = "Mapbox"
+    }
+    
+    @Published
+    var mapVendor: MapVendor = .mapbox
+    
     @Published
     var mapRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 43.07472, longitude: -89.38421),
                                        span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
