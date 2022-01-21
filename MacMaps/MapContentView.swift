@@ -35,8 +35,14 @@ struct MapContentView: View {
             }
             ToolbarItem(placement: .primaryAction) {
                 Menu("Map Type") {
-                    ForEach(viewModel.appleMapsTypes) { mapType in
-                        Button(mapType.name, action: { viewModel.selectedMapType = mapType })
+                    if viewModel.mapVendor == .appleMaps {
+                        ForEach(viewModel.appleMapsTypes) { mapType in
+                            Button(mapType.name, action: { viewModel.selectedAppleMapType = mapType })
+                        }
+                    } else if viewModel.mapVendor == .mapbox {
+                        ForEach(MapContentViewModel.MapboxStyles.allCases, id: \.rawValue) { mapStyle in
+                            Button(mapStyle.rawValue, action: { viewModel.selectedMapboxMapStyle = mapStyle })
+                        }
                     }
                 }
             }
@@ -62,7 +68,7 @@ struct MapContentView: View {
         .onReceive(viewModel.$mapRegion, perform: { region in
             appleMapView.mapView.region = region
         })
-        .onReceive(viewModel.$selectedMapType, perform: { mapType in
+        .onReceive(viewModel.$selectedAppleMapType, perform: { mapType in
             appleMapView.mapView.mapType = mapType
         })
         .onReceive(viewModel.$showUserLocation, perform: { showUserLocation in

@@ -16,6 +16,17 @@ class MapContentViewModel: ObservableObject {
         case mapbox = "Mapbox"
     }
     
+    enum MapboxStyles: String, CaseIterable {
+        case streets = "Streets"
+        case outdoors = "Outdoors"
+        case light = "Light"
+        case dark = "Dark"
+        case satellite = "Satellite"
+        case satelliteStreets = "Satellite Streets"
+        case navigationDay = "Navigation Day"
+        case navigationNight = "Navigation Night"
+    }
+    
     @Published
     var mapVendor: MapVendor = .mapbox
     
@@ -24,7 +35,10 @@ class MapContentViewModel: ObservableObject {
                                        span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
     
     @Published
-    var selectedMapType = MKMapType.standard
+    var selectedAppleMapType = MKMapType.standard
+    
+    @Published
+    var selectedMapboxMapStyle: MapboxStyles = .streets
     
     @Published
     var locationButtonImageName = "location.fill"
