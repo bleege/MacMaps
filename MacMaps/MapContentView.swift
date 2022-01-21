@@ -27,6 +27,13 @@ struct MapContentView: View {
         }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
+                Menu("Map Vendor") {
+                    ForEach(MapContentViewModel.MapVendor.allCases, id: \.rawValue) { vendor in
+                        Button(vendor.rawValue, action: { viewModel.mapVendor = vendor })
+                    }
+                }
+            }
+            ToolbarItem(placement: .primaryAction) {
                 Menu("Map Type") {
                     ForEach(viewModel.appleMapsTypes) { mapType in
                         Button(mapType.name, action: { viewModel.selectedMapType = mapType })
