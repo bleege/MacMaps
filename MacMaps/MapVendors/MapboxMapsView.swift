@@ -17,6 +17,8 @@ struct MapboxMapsView: NSViewRepresentable {
         return web
     }()
     
+    // MARK: - NSViewRepresentable
+    
     func makeNSView(context: Context) -> some NSView {
         let view = NSView()
 
@@ -37,4 +39,10 @@ struct MapboxMapsView: NSViewRepresentable {
         webView.load(URLRequest(url: url))
     }
     
+    // MARK: - Map Functions
+    func changeMapStyle(_ mapStyle: MapContentViewModel.MapboxStyles) {
+        print("\(#function) - mapStyle = \(mapStyle); styleURL = \(mapStyle.styleURL)")
+        let javaScript = "changeStyle('\(mapStyle.styleURL)');"
+        webView.evaluateJavaScript(javaScript, completionHandler: nil)
+    }
 }

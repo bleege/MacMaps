@@ -71,6 +71,9 @@ struct MapContentView: View {
         .onReceive(viewModel.$selectedAppleMapType, perform: { mapType in
             appleMapView.mapView.mapType = mapType
         })
+        .onReceive(viewModel.$selectedMapboxMapStyle, perform: { mapStyle in
+            mapboxMapView.changeMapStyle(mapStyle)
+        })
         .onReceive(viewModel.$showUserLocation, perform: { showUserLocation in
             appleMapView.mapView.showsUserLocation = showUserLocation
         })

@@ -25,6 +25,27 @@ class MapContentViewModel: ObservableObject {
         case satelliteStreets = "Satellite Streets"
         case navigationDay = "Navigation Day"
         case navigationNight = "Navigation Night"
+        
+        var styleURL: String {
+            switch self {
+            case .streets:
+                return "mapbox://styles/mapbox/streets-v11"
+            case .outdoors:
+                return "mapbox://styles/mapbox/outdoors-v11"
+            case .light:
+                return "mapbox://styles/mapbox/light-v10"
+            case .dark:
+                return "mapbox://styles/mapbox/dark-v10"
+            case .satellite:
+                return "mapbox://styles/mapbox/satellite-v9"
+            case .satelliteStreets:
+                return "mapbox://styles/mapbox/satellite-streets-v11"
+            case .navigationDay:
+                return "mapbox://styles/mapbox/navigation-day-v1"
+            case .navigationNight:
+                return "mapbox://styles/mapbox/navigation-night-v1"
+            }
+        }
     }
     
     @Published
