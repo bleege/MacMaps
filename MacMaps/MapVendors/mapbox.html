@@ -21,10 +21,15 @@ body { margin: 0; padding: 0; }
         center: [-74.5, 40], // starting position [lng, lat]
         zoom: 9 // starting zoom
     });
-
+    
     function changeStyle(styleURL) {
         map.setStyle(styleURL)
     }
+    
+    function changeCenter(lat, lon) {
+        map.setCenter([lon, lat])
+    }
+
     
 </script>
  

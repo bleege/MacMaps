@@ -66,7 +66,11 @@ struct MapContentView: View {
             viewModel.searchForLocation()
         }
         .onReceive(viewModel.$mapRegion, perform: { region in
-            appleMapView.mapView.region = region
+            if viewModel.mapVendor == .appleMaps {
+                appleMapView.mapView.region = region
+            } else if viewModel.mapVendor == .mapbox {
+                mapboxMapView.setCenter(region.center)
+            }
         })
         .onReceive(viewModel.$selectedAppleMapType, perform: { mapType in
             appleMapView.mapView.mapType = mapType

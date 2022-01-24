@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import WebKit
+import CoreLocation
 
 struct MapboxMapsView: NSViewRepresentable {
      
@@ -16,6 +17,12 @@ struct MapboxMapsView: NSViewRepresentable {
         web.translatesAutoresizingMaskIntoConstraints = false
         return web
     }()
+    
+    private let webViewNavigationDelegate = MapboxMapsViewDelegate()
+    
+    init() {
+        webView.navigationDelegate = webViewNavigationDelegate
+    }
     
     // MARK: - NSViewRepresentable
     
@@ -44,5 +51,11 @@ struct MapboxMapsView: NSViewRepresentable {
         print("\(#function) - mapStyle = \(mapStyle); styleURL = \(mapStyle.styleURL)")
         let javaScript = "changeStyle('\(mapStyle.styleURL)');"
         webView.evaluateJavaScript(javaScript, completionHandler: nil)
+    }
+    
+    func setCenter(_ center: CLLocationCoordinate2D) {
+        print("\(#function) - center = \(center)")
+        let javaScript = "changeCenter(\(center.latitude), \(center.longitude));"
+        webView.evaluateJavaScript(javaScript)
     }
 }
