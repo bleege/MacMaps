@@ -11,6 +11,7 @@
 		A207B4E1275DD0F800BE3E58 /* MapContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A207B4E0275DD0F800BE3E58 /* MapContentViewModel.swift */; };
 		A20F478E275B466A00ED7D81 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A20F478D275B466A00ED7D81 /* MapKit.framework */; platformFilter = maccatalyst; };
 		A21932F32773A39E003B5ABA /* Combine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A21932F22773A39E003B5ABA /* Combine.framework */; platformFilter = maccatalyst; };
+		A230673E27A10D3B009D5732 /* GeoJSON in Frameworks */ = {isa = PBXBuildFile; productRef = A230673D27A10D3B009D5732 /* GeoJSON */; };
 		A2380F95279916F500ED2282 /* MapboxMapsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2380F94279916F500ED2282 /* MapboxMapsView.swift */; };
 		A2380F972799177700ED2282 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2380F962799177700ED2282 /* WebKit.framework */; platformFilter = maccatalyst; };
 		A2380F9927991A9D00ED2282 /* mapbox.html in Resources */ = {isa = PBXBuildFile; fileRef = A2380F9827991A9D00ED2282 /* mapbox.html */; };
@@ -59,6 +60,7 @@
 				A2F9574A2772038C005FD53B /* CoreLocation.framework in Frameworks */,
 				A21932F32773A39E003B5ABA /* Combine.framework in Frameworks */,
 				A2380F972799177700ED2282 /* WebKit.framework in Frameworks */,
+				A230673E27A10D3B009D5732 /* GeoJSON in Frameworks */,
 				A20F478E275B466A00ED7D81 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -157,6 +159,9 @@
 			dependencies = (
 			);
 			name = MacMaps;
+			packageProductDependencies = (
+				A230673D27A10D3B009D5732 /* GeoJSON */,
+			);
 			productName = MacMaps;
 			productReference = A2E610D42757304B0061FB22 /* MacMaps.app */;
 			productType = "com.apple.product-type.application";
@@ -185,6 +190,9 @@
 				Base,
 			);
 			mainGroup = A2E610CB2757304B0061FB22;
+			packageReferences = (
+				A230673C27A10D3B009D5732 /* XCRemoteSwiftPackageReference "GeoJSON" */,
+			);
 			productRefGroup = A2E610D52757304B0061FB22 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -422,6 +430,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A230673C27A10D3B009D5732 /* XCRemoteSwiftPackageReference "GeoJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kiliankoe/GeoJSON.git";
+			requirement = {
+				kind = exactVersion;
+				version = 0.6.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A230673D27A10D3B009D5732 /* GeoJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A230673C27A10D3B009D5732 /* XCRemoteSwiftPackageReference "GeoJSON" */;
+			productName = GeoJSON;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A2E610CC2757304B0061FB22 /* Project object */;
 }

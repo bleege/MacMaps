@@ -8,6 +8,7 @@
 import Combine
 import CoreLocation
 import MapKit
+import GeoJSON
 
 class MapContentViewModel: ObservableObject {
     
@@ -112,24 +113,47 @@ class MapContentViewModel: ObservableObject {
         
         print("searchQuery = \(searchQuery)")
         
-        geocoder.geocodeAddressString(searchQuery) { [weak self] placemarks, error in
-            if let error = error {
-                print("Error geocoding: \(error)")
-                return
+        if mapVendor == .appleMaps {
+
+            geocoder.geocodeAddressString(searchQuery) { [weak self] placemarks, error in
+                if let error = error {
+                    print("Error geocoding: \(error)")
+                    return
+                }
+                
+                print("placemark(s) found = \(String(describing: placemarks))")
+                if let placemarks = placemarks, placemarks.count > 1 {
+                    self?.searchSuggestions.removeAll()
+                    self?.searchSuggestions.append(contentsOf: placemarks)
+                    return
+                } else {
+                    self?.searchSuggestions.removeAll()
+                }
+                
+                if let placemark = placemarks?[0] {
+                    self?.searchResultPlacemark = placemark
+                }
+                
             }
+        } else if mapVendor == .mapbox {
+                        
+            guard let fileName = searchQuery.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
+            let urlString = "https://api.mapbox.com/geocoding/v5/mapbox.places/\(fileName).json?access_token=pk.eyJ1IjoiYmxlZWdlIiwiYSI6InRIWGRhQTgifQ.aqpWzaYuYupQd78KaSK_SA"
+                        
+            guard let url = URL(string: urlString) else { return }
             
-            print("placemark(s) found = \(String(describing: placemarks))")
-            if let placemarks = placemarks, placemarks.count > 1 {
-                self?.searchSuggestions.removeAll()
-                self?.searchSuggestions.append(contentsOf: placemarks)
-                return
-            } else {
-                self?.searchSuggestions.removeAll()
-            }
-            
-            if let placemark = placemarks?[0] {
-                self?.searchResultPlacemark = placemark
-            }
+            URLSession.shared.dataTaskPublisher(for: url)
+                .tryMap() {
+                    return $0.data
+                }
+                .decode(type: FeatureCollection.self, decoder: JSONDecoder())
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: { _ in
+                    print("Received completion for Mapbox Geocode Request")
+                }, receiveValue: { featureCollection in
+                    print("Received featureCollection: \(featureCollection)")
+                })
+                .store(in: &cancellables)
             
         }
         
