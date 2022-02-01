@@ -75,7 +75,10 @@ class MapContentViewModel: ObservableObject {
     var searchSuggestions = [CLPlacemark]()
     
     @Published
-    var searchResultPlacemark: CLPlacemark?
+    var searchResultApplePlacemark: CLPlacemark?
+    
+    @Published
+    var searchResultMapboxFeature: Feature?
 
     let appleMapsTypes: [MKMapType] = [.standard, .satellite, .hybrid, .satelliteFlyover, .hybridFlyover, .mutedStandard]
     
@@ -131,7 +134,7 @@ class MapContentViewModel: ObservableObject {
                 }
                 
                 if let placemark = placemarks?[0] {
-                    self?.searchResultPlacemark = placemark
+                    self?.searchResultApplePlacemark = placemark
                 }
                 
             }
@@ -150,8 +153,13 @@ class MapContentViewModel: ObservableObject {
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in
                     print("Received completion for Mapbox Geocode Request")
-                }, receiveValue: { featureCollection in
+                }, receiveValue: { [weak self] featureCollection in
                     print("Received featureCollection: \(featureCollection)")
+                    
+                    if let feature = featureCollection.features.first {
+                        print("Returning Mapbox Search Feature Result = \(feature)")
+                        self?.searchResultMapboxFeature = feature
+                    }
                 })
                 .store(in: &cancellables)
             

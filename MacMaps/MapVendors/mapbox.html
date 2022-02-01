@@ -22,12 +22,19 @@ body { margin: 0; padding: 0; }
         zoom: 9 // starting zoom
     });
     
+    const marker = new mapboxgl.Marker()
+    
     function changeStyle(styleURL) {
         map.setStyle(styleURL)
     }
     
     function changeCenter(lat, lon) {
         map.setCenter([lon, lat])
+    }
+    
+    function addMarker(lat, lon) {
+        marker.setLngLat([lon, lat])
+                .addTo(map);
     }
 
     

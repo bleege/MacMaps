@@ -81,9 +81,13 @@ struct MapContentView: View {
         .onReceive(viewModel.$showUserLocation, perform: { showUserLocation in
             appleMapView.mapView.showsUserLocation = showUserLocation
         })
-        .onReceive(viewModel.$searchResultPlacemark, perform: { placemark in
+        .onReceive(viewModel.$searchResultApplePlacemark, perform: { placemark in
             guard let placemark = placemark else { return }
             appleMapView.showMarker(placemark)
+        })
+        .onReceive(viewModel.$searchResultMapboxFeature, perform: { feature in
+            guard let feature = feature else { return }
+            mapboxMapView.showMarker(feature)
         })
     }
     

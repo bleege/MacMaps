@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 import WebKit
 import CoreLocation
+import GeoJSON
 
 struct MapboxMapsView: NSViewRepresentable {
      
@@ -57,5 +58,16 @@ struct MapboxMapsView: NSViewRepresentable {
         print("\(#function) - center = \(center)")
         let javaScript = "changeCenter(\(center.latitude), \(center.longitude));"
         webView.evaluateJavaScript(javaScript)
+    }
+    
+    func showMarker(_ feature: GeoJSON.Feature) {
+        print("\(#function) - feature = \(feature)")
+        switch feature.geometry {
+        case .point(let point):
+            let javaScript = "addMarker(\(point.coordinates.latitude), \(point.coordinates.longitude));"
+            webView.evaluateJavaScript(javaScript)
+        default:
+            print("no op")
+        }
     }
 }
