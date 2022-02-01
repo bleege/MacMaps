@@ -35,6 +35,7 @@ body { margin: 0; padding: 0; }
     function addMarker(lat, lon) {
         marker.setLngLat([lon, lat])
                 .addTo(map);
+        changeCenter(lat, lon)
     }
 
     

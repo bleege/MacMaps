@@ -154,10 +154,9 @@ class MapContentViewModel: ObservableObject {
                 .sink(receiveCompletion: { _ in
                     print("Received completion for Mapbox Geocode Request")
                 }, receiveValue: { [weak self] featureCollection in
-                    print("Received featureCollection: \(featureCollection)")
+                    print("Received featureCollection from Geocode Search")
                     
                     if let feature = featureCollection.features.first {
-                        print("Returning Mapbox Search Feature Result = \(feature)")
                         self?.searchResultMapboxFeature = feature
                     }
                 })
