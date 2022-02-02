@@ -10,8 +10,9 @@ import SwiftUI
 import WebKit
 import CoreLocation
 import GeoJSON
+import Combine
 
-struct MapboxMapsView: NSViewRepresentable {
+final class MapboxMapsView: NSViewRepresentable {
      
     private let webView: WKWebView = {
         let web = WKWebView()
@@ -20,9 +21,15 @@ struct MapboxMapsView: NSViewRepresentable {
     }()
     
     private let webViewNavigationDelegate = MapboxMapsViewDelegate()
+    private var mapFinishedLoadingCancelable = Set<AnyCancellable>()
     
     init() {
         webView.navigationDelegate = webViewNavigationDelegate
+        
+        webViewNavigationDelegate.mapFinishedLoadingPublisher
+            .sink(receiveValue: { [weak self] didFinish in
+                self?.setCenter(LocationManager.shared.currentLocation.value.coordinate)
+            }).store(in: &mapFinishedLoadingCancelable)
     }
     
     // MARK: - NSViewRepresentable
