@@ -13,9 +13,12 @@ struct MapContentView: View {
 
     @ObservedObject
     private var viewModel = MapContentViewModel()
+    
+    // Map Vendors
     private let appleMapView = AppleMapsView()
     private let mapboxMapView = MapboxMapsView()
     
+    @Environment(\.isSearching) private var isSearching: Bool
     
     var body: some View {
         HStack {
@@ -65,6 +68,12 @@ struct MapContentView: View {
         .onSubmit(of: .search) {
             viewModel.searchForLocation()
         }
+        .onChange(of: viewModel.searchQuery) { query in
+            if viewModel.searchQuery.isEmpty && !isSearching {
+                print("Search is cancelled")
+                viewModel.searchCancelledPublisher.send(true)
+            }
+        }
         .onReceive(viewModel.$mapRegion, perform: { region in
             if viewModel.mapVendor == .appleMaps {
                 appleMapView.mapView.region = region
@@ -88,6 +97,13 @@ struct MapContentView: View {
         .onReceive(viewModel.$searchResultMapboxFeature, perform: { feature in
             guard let feature = feature else { return }
             mapboxMapView.showMarker(feature)
+        })
+        .onReceive(viewModel.searchCancelledPublisher, perform: { didCancel in
+            if viewModel.mapVendor == .appleMaps {
+                appleMapView.clearMarker()
+            } else if viewModel.mapVendor == .mapbox {
+                mapboxMapView.clearMarker()
+            }
         })
     }
     

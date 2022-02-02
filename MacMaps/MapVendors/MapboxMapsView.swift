@@ -77,4 +77,10 @@ final class MapboxMapsView: NSViewRepresentable {
             print("no op")
         }
     }
+    
+    func clearMarker() {
+        print("\(#function)")
+        let javaScript = "clearMarker();"
+        webView.evaluateJavaScript(javaScript)
+    }
 }

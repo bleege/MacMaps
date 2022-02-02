@@ -79,7 +79,9 @@ class MapContentViewModel: ObservableObject {
     
     @Published
     var searchResultMapboxFeature: Feature?
-
+    
+    let searchCancelledPublisher = PassthroughSubject<Bool, Never>()
+    
     let appleMapsTypes: [MKMapType] = [.standard, .satellite, .hybrid, .satelliteFlyover, .hybridFlyover, .mutedStandard]
     
     private var cancellables = Set<AnyCancellable>()
