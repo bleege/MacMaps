@@ -16,6 +16,7 @@ struct MapContentView: View {
     
     // Map Vendors
     private let appleMapView = AppleMapsView()
+    private let googleMapsView = GoogleMapsView()
     private let mapboxMapView = MapboxMapsView()
     
     @Environment(\.isSearching) private var isSearching: Bool
@@ -24,7 +25,10 @@ struct MapContentView: View {
         HStack {
             if viewModel.mapVendor == .appleMaps {
                 appleMapView
-            } else if viewModel.mapVendor == .mapbox {
+            } else if viewModel.mapVendor == .googleMaps {
+                googleMapsView
+            }
+            else if viewModel.mapVendor == .mapbox {
                 mapboxMapView
             }
         }

@@ -14,6 +14,7 @@ class MapContentViewModel: ObservableObject {
     
     enum MapVendor: String, CaseIterable {
         case appleMaps = "Apple Maps"
+        case googleMaps = "Google Maps"
         case mapbox = "Mapbox"
     }
     

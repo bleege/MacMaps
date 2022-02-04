@@ -16,6 +16,8 @@
 		A2380F972799177700ED2282 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2380F962799177700ED2282 /* WebKit.framework */; platformFilter = maccatalyst; };
 		A2380F9927991A9D00ED2282 /* mapbox.html in Resources */ = {isa = PBXBuildFile; fileRef = A2380F9827991A9D00ED2282 /* mapbox.html */; };
 		A2A965BB27646CBB00EF20E8 /* MKMapType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A965BA27646CBB00EF20E8 /* MKMapType+Extensions.swift */; };
+		A2AC988E27AA4BF6007FA38E /* GoogleMapsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AC988D27AA4BF6007FA38E /* GoogleMapsView.swift */; };
+		A2AC989027AA4D88007FA38E /* google-maps.html in Resources */ = {isa = PBXBuildFile; fileRef = A2AC988F27AA4D88007FA38E /* google-maps.html */; };
 		A2C4DCD127952D1100975815 /* AppleMapsView+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C4DCD027952D1100975815 /* AppleMapsView+Delegates.swift */; };
 		A2C81E522765C1C9005EBB73 /* AppleMapsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C81E512765C1C9005EBB73 /* AppleMapsView.swift */; };
 		A2E610D82757304B0061FB22 /* MacMapsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E610D72757304B0061FB22 /* MacMapsApp.swift */; };
@@ -38,6 +40,8 @@
 		A2380F962799177700ED2282 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		A2380F9827991A9D00ED2282 /* mapbox.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = mapbox.html; sourceTree = "<group>"; };
 		A2A965BA27646CBB00EF20E8 /* MKMapType+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapType+Extensions.swift"; sourceTree = "<group>"; };
+		A2AC988D27AA4BF6007FA38E /* GoogleMapsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsView.swift; sourceTree = "<group>"; };
+		A2AC988F27AA4D88007FA38E /* google-maps.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "google-maps.html"; sourceTree = "<group>"; };
 		A2C4DCD027952D1100975815 /* AppleMapsView+Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppleMapsView+Delegates.swift"; sourceTree = "<group>"; };
 		A2C81E512765C1C9005EBB73 /* AppleMapsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMapsView.swift; sourceTree = "<group>"; };
 		A2E610D42757304B0061FB22 /* MacMaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacMaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,6 +92,8 @@
 				A2380F94279916F500ED2282 /* MapboxMapsView.swift */,
 				A2E6C010279E656700CB2808 /* MapboxMapsView+Delegates.swift */,
 				A2380F9827991A9D00ED2282 /* mapbox.html */,
+				A2AC988D27AA4BF6007FA38E /* GoogleMapsView.swift */,
+				A2AC988F27AA4D88007FA38E /* google-maps.html */,
 			);
 			path = MapVendors;
 			sourceTree = "<group>";
@@ -209,6 +215,7 @@
 			files = (
 				A2E610DF2757304D0061FB22 /* Preview Assets.xcassets in Resources */,
 				A2E610DC2757304D0061FB22 /* Assets.xcassets in Resources */,
+				A2AC989027AA4D88007FA38E /* google-maps.html in Resources */,
 				A2380F9927991A9D00ED2282 /* mapbox.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -220,6 +227,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2AC988E27AA4BF6007FA38E /* GoogleMapsView.swift in Sources */,
 				A2A965BB27646CBB00EF20E8 /* MKMapType+Extensions.swift in Sources */,
 				A2E610DA2757304B0061FB22 /* ContentView.swift in Sources */,
 				A207B4DF275DD0C600BE3E58 /* MapContentView.swift in Sources */,
