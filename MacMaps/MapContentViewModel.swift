@@ -72,7 +72,7 @@ class MapContentViewModel: ObservableObject {
     }
     
     @Published
-    var mapVendor: MapVendor = .mapbox
+    var mapVendor: MapVendor = .googleMaps
     
     @Published
     var mapRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 43.07472, longitude: -89.38421),

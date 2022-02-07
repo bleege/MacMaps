@@ -20,6 +20,11 @@
                 });
             }
             
+            function changeCenter(lat, lon) {
+                const newLoc = { lat: lat, lng: lon };
+                map.setCenter(newLoc);
+            }
+            
             function changeStyle(styleURL) {
                 map.setMapTypeId(styleURL);
             }

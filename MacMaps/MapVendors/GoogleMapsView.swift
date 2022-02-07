@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import WebKit
+import CoreLocation
 
 final class GoogleMapsView: NSViewRepresentable {
     
@@ -42,4 +43,11 @@ final class GoogleMapsView: NSViewRepresentable {
         let javaScript = "changeStyle('\(mapStyle.styleURL)');"
         webView.evaluateJavaScript(javaScript, completionHandler: nil)
     }
+    
+    func setCenter(_ center: CLLocationCoordinate2D) {
+        print("\(#function) - center = \(center)")
+        let javaScript = "changeCenter(\(center.latitude), \(center.longitude));"
+        webView.evaluateJavaScript(javaScript)
+    }
+
 }

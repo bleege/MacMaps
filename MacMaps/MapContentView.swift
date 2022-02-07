@@ -25,11 +25,10 @@ struct MapContentView: View {
         HStack {
             if viewModel.mapVendor == .appleMaps {
                 appleMapView
+            } else if viewModel.mapVendor == .mapbox {
+                mapboxMapView
             } else if viewModel.mapVendor == .googleMaps {
                 googleMapsView
-            }
-            else if viewModel.mapVendor == .mapbox {
-                mapboxMapView
             }
         }
         .toolbar {
@@ -87,6 +86,8 @@ struct MapContentView: View {
                 appleMapView.mapView.region = region
             } else if viewModel.mapVendor == .mapbox {
                 mapboxMapView.setCenter(region.center)
+            } else if viewModel.mapVendor == .googleMaps {
+                googleMapsView.setCenter(region.center)
             }
         })
         .onReceive(viewModel.$selectedAppleMapType, perform: { mapType in
