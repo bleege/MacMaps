@@ -36,4 +36,10 @@ final class GoogleMapsView: NSViewRepresentable {
         guard let url = Bundle.main.url(forResource: "google-maps", withExtension: "html") else { return }
         webView.load(URLRequest(url: url))
     }
+    
+    func changeMapStyle(_ mapStyle: MapContentViewModel.GoogleMapStyles) {
+        print("\(#function) - mapStyle = \(mapStyle); styleURL = \(mapStyle.styleURL)")
+        let javaScript = "changeStyle('\(mapStyle.styleURL)');"
+        webView.evaluateJavaScript(javaScript, completionHandler: nil)
+    }
 }

@@ -50,6 +50,10 @@ struct MapContentView: View {
                         ForEach(MapContentViewModel.MapboxStyles.allCases, id: \.rawValue) { mapStyle in
                             Button(mapStyle.rawValue, action: { viewModel.selectedMapboxMapStyle = mapStyle })
                         }
+                    } else if viewModel.mapVendor == .googleMaps {
+                        ForEach(MapContentViewModel.GoogleMapStyles.allCases, id: \.rawValue) { mapStyle in
+                            Button(mapStyle.rawValue, action: { viewModel.selectGoogleMapStyle = mapStyle })
+                        }
                     }
                 }
             }
@@ -90,6 +94,9 @@ struct MapContentView: View {
         })
         .onReceive(viewModel.$selectedMapboxMapStyle, perform: { mapStyle in
             mapboxMapView.changeMapStyle(mapStyle)
+        })
+        .onReceive(viewModel.$selectGoogleMapStyle, perform: { mapStyle in
+            googleMapsView.changeMapStyle(mapStyle)
         })
         .onReceive(viewModel.$showUserLocation, perform: { showUserLocation in
             appleMapView.mapView.showsUserLocation = showUserLocation

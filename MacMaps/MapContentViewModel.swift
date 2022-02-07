@@ -50,6 +50,27 @@ class MapContentViewModel: ObservableObject {
         }
     }
     
+    enum GoogleMapStyles: String, CaseIterable {
+        case roadmap = "Road Map"
+        case satellite = "Satellite"
+        case hybrid = "Hybrid"
+        case terrain = "Terrain"
+        
+        var styleURL: String {
+            switch self {
+            case .roadmap:
+                return "roadmap"
+            case .satellite:
+                return "satellite"
+            case .hybrid:
+                return "hybrid"
+            case .terrain:
+                return "terrain"
+            }
+        }
+        
+    }
+    
     @Published
     var mapVendor: MapVendor = .mapbox
     
@@ -62,6 +83,9 @@ class MapContentViewModel: ObservableObject {
     
     @Published
     var selectedMapboxMapStyle: MapboxStyles = .streets
+    
+    @Published
+    var selectGoogleMapStyle: GoogleMapStyles = .roadmap
     
     @Published
     var locationButtonImageName = "location.fill"
