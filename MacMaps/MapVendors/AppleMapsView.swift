@@ -13,7 +13,6 @@ final class AppleMapsView: NSViewRepresentable {
     
     let mapView: MKMapView = {
         let mapView = MKMapView()
-        mapView.showsZoomControls = true
         mapView.translatesAutoresizingMaskIntoConstraints = false
         return mapView
     }()
