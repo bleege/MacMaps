@@ -189,6 +189,25 @@ class MapContentViewModel: ObservableObject {
                 })
                 .store(in: &cancellables)
             
+        } else if mapVendor == .googleMaps {
+            
+            guard let address = searchQuery.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
+            let urlString = "https://maps.googleapis.com/maps/api/geocode/json?address=\(address)&key=AIzaSyB11TbcmRU79EU-Iig8jb2MtHU411s8R6c"
+                        
+            guard let url = URL(string: urlString) else { return }
+
+            URLSession.shared.dataTaskPublisher(for: url)
+                .tryMap {
+                    return $0.data
+                }
+                .decode(type: GoogleMapsGeocodingResponse.self, decoder: JSONDecoder())
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: { complete in
+                    print("Received completion for Google Geocode Request: \(complete)")
+                }, receiveValue: { json in
+                    print("JSON received = \(json)")
+                })
+                .store(in: &cancellables)
         }
         
     }

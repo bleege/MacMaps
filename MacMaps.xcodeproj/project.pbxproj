@@ -18,6 +18,7 @@
 		A2A965BB27646CBB00EF20E8 /* MKMapType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A965BA27646CBB00EF20E8 /* MKMapType+Extensions.swift */; };
 		A2AC988E27AA4BF6007FA38E /* GoogleMapsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AC988D27AA4BF6007FA38E /* GoogleMapsView.swift */; };
 		A2AC989027AA4D88007FA38E /* google-maps.html in Resources */ = {isa = PBXBuildFile; fileRef = A2AC988F27AA4D88007FA38E /* google-maps.html */; };
+		A2B48D9527B235C0002EA5B0 /* GoogleMapsGeocodingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B48D9427B235C0002EA5B0 /* GoogleMapsGeocodingResponse.swift */; };
 		A2C4DCD127952D1100975815 /* AppleMapsView+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C4DCD027952D1100975815 /* AppleMapsView+Delegates.swift */; };
 		A2C81E522765C1C9005EBB73 /* AppleMapsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C81E512765C1C9005EBB73 /* AppleMapsView.swift */; };
 		A2E610D82757304B0061FB22 /* MacMapsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E610D72757304B0061FB22 /* MacMapsApp.swift */; };
@@ -42,6 +43,7 @@
 		A2A965BA27646CBB00EF20E8 /* MKMapType+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapType+Extensions.swift"; sourceTree = "<group>"; };
 		A2AC988D27AA4BF6007FA38E /* GoogleMapsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsView.swift; sourceTree = "<group>"; };
 		A2AC988F27AA4D88007FA38E /* google-maps.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "google-maps.html"; sourceTree = "<group>"; };
+		A2B48D9427B235C0002EA5B0 /* GoogleMapsGeocodingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsGeocodingResponse.swift; sourceTree = "<group>"; };
 		A2C4DCD027952D1100975815 /* AppleMapsView+Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppleMapsView+Delegates.swift"; sourceTree = "<group>"; };
 		A2C81E512765C1C9005EBB73 /* AppleMapsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMapsView.swift; sourceTree = "<group>"; };
 		A2E610D42757304B0061FB22 /* MacMaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacMaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -94,6 +96,7 @@
 				A2380F9827991A9D00ED2282 /* mapbox.html */,
 				A2AC988D27AA4BF6007FA38E /* GoogleMapsView.swift */,
 				A2AC988F27AA4D88007FA38E /* google-maps.html */,
+				A2B48D9427B235C0002EA5B0 /* GoogleMapsGeocodingResponse.swift */,
 			);
 			path = MapVendors;
 			sourceTree = "<group>";
@@ -227,6 +230,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2B48D9527B235C0002EA5B0 /* GoogleMapsGeocodingResponse.swift in Sources */,
 				A2AC988E27AA4BF6007FA38E /* GoogleMapsView.swift in Sources */,
 				A2A965BB27646CBB00EF20E8 /* MKMapType+Extensions.swift in Sources */,
 				A2E610DA2757304B0061FB22 /* ContentView.swift in Sources */,
