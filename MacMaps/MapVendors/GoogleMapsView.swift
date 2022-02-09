@@ -50,4 +50,18 @@ final class GoogleMapsView: NSViewRepresentable {
         webView.evaluateJavaScript(javaScript)
     }
 
+    func showMarker(_ feature: GoogleMapsGeocodingResponse) {
+        print("\(#function) - feature = \(feature)")
+        let point = feature.results[0].geometry
+        let javaScript = "addMarker(\(point.location.lat), \(point.location.lng));"
+        webView.evaluateJavaScript(javaScript)
+    }
+    
+    func clearMarker() {
+        print("\(#function)")
+        let javaScript = "clearMarker();"
+        webView.evaluateJavaScript(javaScript)
+    }
+
+    
 }

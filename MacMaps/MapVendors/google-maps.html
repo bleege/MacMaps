@@ -8,6 +8,7 @@
     </style>
         <script>
             var map;
+            var marker;
 
             // Initialize and add the map
             function initMap() {
@@ -29,6 +30,20 @@
             function changeStyle(styleURL) {
                 map.setMapTypeId(styleURL);
             }
+            
+            function addMarker(lat, lon) {
+                const newLoc = { lat: lat, lng: lon };
+                marker = new google.maps.Marker({
+                    position: newLoc,
+                    map
+                })
+                map.setCenter(newLoc)
+            }
+            
+            function clearMarker() {
+                marker.setMap(null);
+            }
+
 
         </script>
   </head>

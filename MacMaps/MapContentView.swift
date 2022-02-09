@@ -110,11 +110,17 @@ struct MapContentView: View {
             guard let feature = feature else { return }
             mapboxMapView.showMarker(feature)
         })
+        .onReceive(viewModel.$searchResultGoogleMapLocation, perform: { location in
+            guard let location = location else { return }
+            googleMapsView.showMarker(location)
+        })
         .onReceive(viewModel.searchCancelledPublisher, perform: { didCancel in
             if viewModel.mapVendor == .appleMaps {
                 appleMapView.clearMarker()
             } else if viewModel.mapVendor == .mapbox {
                 mapboxMapView.clearMarker()
+            } else if viewModel.mapVendor == .googleMaps {
+                googleMapsView.clearMarker()
             }
         })
     }

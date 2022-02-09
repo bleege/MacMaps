@@ -105,6 +105,9 @@ class MapContentViewModel: ObservableObject {
     @Published
     var searchResultMapboxFeature: Feature?
     
+    @Published
+    var searchResultGoogleMapLocation: GoogleMapsGeocodingResponse?
+    
     let searchCancelledPublisher = PassthroughSubject<Bool, Never>()
     
     let appleMapsTypes: [MKMapType] = [.standard, .satellite, .hybrid, .satelliteFlyover, .hybridFlyover, .mutedStandard]
@@ -205,7 +208,7 @@ class MapContentViewModel: ObservableObject {
                 .sink(receiveCompletion: { complete in
                     print("Received completion for Google Geocode Request: \(complete)")
                 }, receiveValue: { json in
-                    print("JSON received = \(json)")
+                    self.searchResultGoogleMapLocation = json
                 })
                 .store(in: &cancellables)
         }
