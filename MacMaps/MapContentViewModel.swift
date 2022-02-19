@@ -12,7 +12,9 @@ import GeoJSON
 
 class MapContentViewModel: ObservableObject {
     
-    enum MapVendor: String, CaseIterable {
+    enum MapVendor: String, CaseIterable, Identifiable {
+        var id: Self { self }
+        
         case appleMaps = "Apple Maps"
         case googleMaps = "Google Maps"
         case mapbox = "Mapbox"

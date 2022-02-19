@@ -33,9 +33,11 @@ struct MapContentView: View {
         }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                Menu("Map Vendor") {
-                    ForEach(MapContentViewModel.MapVendor.allCases, id: \.rawValue) { vendor in
-                        Button(vendor.rawValue, action: { viewModel.mapVendor = vendor })
+                VStack {
+                    Picker("Map Vendor", selection: $viewModel.mapVendor) {
+                        ForEach(MapContentViewModel.MapVendor.allCases, id: \.rawValue) { vendor in
+                            Text(vendor.rawValue).tag(vendor)
+                        }
                     }
                 }
             }
