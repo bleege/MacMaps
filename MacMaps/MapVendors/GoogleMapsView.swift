@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 import WebKit
 import CoreLocation
+import Combine
 
 final class GoogleMapsView: NSViewRepresentable {
     
@@ -17,6 +18,18 @@ final class GoogleMapsView: NSViewRepresentable {
         web.translatesAutoresizingMaskIntoConstraints = false
         return web
     }()
+    
+    private let webViewNavigationDelegate = GoogleMapsViewDelegate()
+    private var mapFinishedLoadingCancelable = Set<AnyCancellable>()
+    
+    init() {
+        webView.navigationDelegate = webViewNavigationDelegate
+        
+        webViewNavigationDelegate.mapFinishedLoadingPublisher
+            .sink(receiveValue: { [weak self] didFinish in
+                self?.setCenter(LocationManager.shared.currentLocation.value.coordinate)
+            }).store(in: &mapFinishedLoadingCancelable)
+    }
     
     func makeNSView(context: Context) -> some NSView {
         let view = NSView()

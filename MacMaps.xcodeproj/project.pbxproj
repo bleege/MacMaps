@@ -15,6 +15,7 @@
 		A2380F95279916F500ED2282 /* MapboxMapsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2380F94279916F500ED2282 /* MapboxMapsView.swift */; };
 		A2380F972799177700ED2282 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2380F962799177700ED2282 /* WebKit.framework */; platformFilter = maccatalyst; };
 		A2380F9927991A9D00ED2282 /* mapbox.html in Resources */ = {isa = PBXBuildFile; fileRef = A2380F9827991A9D00ED2282 /* mapbox.html */; };
+		A247E5F327C0C01900C77DB4 /* GoogleMapsView+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = A247E5F227C0C01900C77DB4 /* GoogleMapsView+Delegates.swift */; };
 		A2A965BB27646CBB00EF20E8 /* MKMapType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A965BA27646CBB00EF20E8 /* MKMapType+Extensions.swift */; };
 		A2AC988E27AA4BF6007FA38E /* GoogleMapsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AC988D27AA4BF6007FA38E /* GoogleMapsView.swift */; };
 		A2AC989027AA4D88007FA38E /* google-maps.html in Resources */ = {isa = PBXBuildFile; fileRef = A2AC988F27AA4D88007FA38E /* google-maps.html */; };
@@ -40,6 +41,7 @@
 		A2380F94279916F500ED2282 /* MapboxMapsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapboxMapsView.swift; sourceTree = "<group>"; };
 		A2380F962799177700ED2282 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		A2380F9827991A9D00ED2282 /* mapbox.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = mapbox.html; sourceTree = "<group>"; };
+		A247E5F227C0C01900C77DB4 /* GoogleMapsView+Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GoogleMapsView+Delegates.swift"; sourceTree = "<group>"; };
 		A2A965BA27646CBB00EF20E8 /* MKMapType+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapType+Extensions.swift"; sourceTree = "<group>"; };
 		A2AC988D27AA4BF6007FA38E /* GoogleMapsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsView.swift; sourceTree = "<group>"; };
 		A2AC988F27AA4D88007FA38E /* google-maps.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "google-maps.html"; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				A2E6C010279E656700CB2808 /* MapboxMapsView+Delegates.swift */,
 				A2380F9827991A9D00ED2282 /* mapbox.html */,
 				A2AC988D27AA4BF6007FA38E /* GoogleMapsView.swift */,
+				A247E5F227C0C01900C77DB4 /* GoogleMapsView+Delegates.swift */,
 				A2AC988F27AA4D88007FA38E /* google-maps.html */,
 				A2B48D9427B235C0002EA5B0 /* GoogleMapsGeocodingResponse.swift */,
 			);
@@ -231,6 +234,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2B48D9527B235C0002EA5B0 /* GoogleMapsGeocodingResponse.swift in Sources */,
+				A247E5F327C0C01900C77DB4 /* GoogleMapsView+Delegates.swift in Sources */,
 				A2AC988E27AA4BF6007FA38E /* GoogleMapsView.swift in Sources */,
 				A2A965BB27646CBB00EF20E8 /* MKMapType+Extensions.swift in Sources */,
 				A2E610DA2757304B0061FB22 /* ContentView.swift in Sources */,
