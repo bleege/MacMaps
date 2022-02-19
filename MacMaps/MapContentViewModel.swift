@@ -19,8 +19,39 @@ class MapContentViewModel: ObservableObject {
         case googleMaps = "Google Maps"
         case mapbox = "Mapbox"
     }
+        
+    enum AppleMapTypes: String, CaseIterable, Identifiable {
+        var id: Self { self }
+
+        case standard = "Standard"
+        case satellite = "Satellite"
+        case hybrid = "Hybrid"
+        case satelliteFlyover = "Satellite Flyover"
+        case hybridFlyover = "Hybrid Flyover"
+        case mutedStandard = "Muted Standard"
+        
+        var type: MKMapType {
+            switch self {
+            case .standard:
+                return .standard
+            case .satellite:
+                return .satellite
+            case .hybrid:
+                return .hybrid
+            case .satelliteFlyover:
+                return .satelliteFlyover
+            case .hybridFlyover:
+                return .hybridFlyover
+            case .mutedStandard:
+                return .mutedStandard
+            }
+        }
+        
+    }
     
-    enum MapboxStyles: String, CaseIterable {
+    enum MapboxStyles: String, CaseIterable, Identifiable {
+        var id: Self { self }
+        
         case streets = "Streets"
         case outdoors = "Outdoors"
         case light = "Light"
@@ -52,7 +83,9 @@ class MapContentViewModel: ObservableObject {
         }
     }
     
-    enum GoogleMapStyles: String, CaseIterable {
+    enum GoogleMapStyles: String, CaseIterable, Identifiable {
+        var id: Self { self }
+        
         case roadmap = "Road Map"
         case satellite = "Satellite"
         case hybrid = "Hybrid"
@@ -87,7 +120,7 @@ class MapContentViewModel: ObservableObject {
     var selectedMapboxMapStyle: MapboxStyles = .streets
     
     @Published
-    var selectGoogleMapStyle: GoogleMapStyles = .roadmap
+    var selectedGoogleMapStyle: GoogleMapStyles = .roadmap
     
     @Published
     var locationButtonImageName = "location.fill"
@@ -111,9 +144,7 @@ class MapContentViewModel: ObservableObject {
     var searchResultGoogleMapLocation: GoogleMapsGeocodingResponse?
     
     let searchCancelledPublisher = PassthroughSubject<Bool, Never>()
-    
-    let appleMapsTypes: [MKMapType] = [.standard, .satellite, .hybrid, .satelliteFlyover, .hybridFlyover, .mutedStandard]
-    
+        
     private var cancellables = Set<AnyCancellable>()
     
     private let geocoder = CLGeocoder()

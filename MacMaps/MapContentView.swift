@@ -42,18 +42,26 @@ struct MapContentView: View {
                 }
             }
             ToolbarItem(placement: .primaryAction) {
-                Menu("Map Type") {
+
+                VStack {
                     if viewModel.mapVendor == .appleMaps {
-                        ForEach(viewModel.appleMapsTypes) { mapType in
-                            Button(mapType.name, action: { viewModel.selectedAppleMapType = mapType })
+                        Picker("Apple Styles", selection: $viewModel.selectedAppleMapType) {
+                            ForEach(MapContentViewModel.AppleMapTypes.allCases) { mapType in
+                                Text(mapType.rawValue).tag(mapType.type)
+                            }
                         }
                     } else if viewModel.mapVendor == .mapbox {
-                        ForEach(MapContentViewModel.MapboxStyles.allCases, id: \.rawValue) { mapStyle in
-                            Button(mapStyle.rawValue, action: { viewModel.selectedMapboxMapStyle = mapStyle })
+                        Picker("Mapbox Styles", selection: $viewModel.selectedMapboxMapStyle) {
+                            ForEach(MapContentViewModel.MapboxStyles.allCases) { mapStyle in
+                                Text(mapStyle.rawValue).tag(mapStyle)
+                            }
                         }
                     } else if viewModel.mapVendor == .googleMaps {
-                        ForEach(MapContentViewModel.GoogleMapStyles.allCases, id: \.rawValue) { mapStyle in
-                            Button(mapStyle.rawValue, action: { viewModel.selectGoogleMapStyle = mapStyle })
+
+                        Picker("Google Styles", selection: $viewModel.selectedGoogleMapStyle) {
+                            ForEach(MapContentViewModel.GoogleMapStyles.allCases) { mapStyle in
+                                Text(mapStyle.rawValue).tag(mapStyle)
+                            }
                         }
                     }
                 }
@@ -98,7 +106,7 @@ struct MapContentView: View {
         .onReceive(viewModel.$selectedMapboxMapStyle, perform: { mapStyle in
             mapboxMapView.changeMapStyle(mapStyle)
         })
-        .onReceive(viewModel.$selectGoogleMapStyle, perform: { mapStyle in
+        .onReceive(viewModel.$selectedGoogleMapStyle, perform: { mapStyle in
             googleMapsView.changeMapStyle(mapStyle)
         })
         .onReceive(viewModel.$showUserLocation, perform: { showUserLocation in
