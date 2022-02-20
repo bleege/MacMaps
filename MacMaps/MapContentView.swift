@@ -113,6 +113,12 @@ struct MapContentView: View {
             
             if viewModel.mapVendor == .appleMaps {
                 appleMapView.mapView.showsUserLocation = showUserLocation
+            } else if viewModel.mapVendor == .mapbox {
+                if showUserLocation {
+                    mapboxMapView.showUserLocation(viewModel.mapRegion.center)
+                } else {
+                    mapboxMapView.hideUserLocation()
+                }
             } else if viewModel.mapVendor == .googleMaps {
                 if showUserLocation {
                     googleMapsView.showUserLocation(viewModel.mapRegion.center)

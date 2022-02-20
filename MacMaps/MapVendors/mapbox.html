@@ -6,6 +6,7 @@
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet">
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
+<script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
 <style>
 body { margin: 0; padding: 0; }
 #map { position: absolute; top: 0; bottom: 0; width: 100%; }
@@ -42,6 +43,71 @@ body { margin: 0; padding: 0; }
         marker.remove();
     }
 
+    function showUserLocation(lat, lon) {
+
+        var center = turf.point([lon, lat]);
+            var radius = 0.1;
+            var options = {
+              steps: 40,
+              units: 'kilometers'
+            };
+
+        var circle = turf.circle(center, radius, options);
+
+        map.addLayer({
+            "id": "circle-fill",
+            "type": "fill",
+            "source": {
+                "type": "geojson",
+                "data": circle
+            },
+            "layout": {
+                'visibility': 'visible'
+            },
+            "paint": {
+                "fill-color": "#0277bd",
+                "fill-opacity": 0.9
+            }
+        });
+        map.addLayer({
+            "id": "circle-outline",
+            "type": "line",
+            "source": {
+                "type": "geojson",
+                "data": circle
+            },
+            "layout": {
+                'visibility': 'visible'
+            },
+            "paint": {
+                "line-color": "#29b6f6",
+                "line-opacity": 0.5,
+                "line-width": 10,
+                "line-offset": 5
+            }
+        });
+        
+        changeCenter(lat, lon)
+        
+    }
+    
+    function hideUserLocation() {
+        
+        const visibility = map.getLayoutProperty("circle-fill", 'visibility');
+         
+        // Toggle layer visibility by changing the layout object's visibility property.
+        if (visibility === 'visible') {
+            map.setLayoutProperty("circle-fill", 'visibility', 'none');
+        }
+        
+        const circleOutlineVisibility = map.getLayoutProperty("circle-outline", 'visibility');
+        
+        if (circleOutlineVisibility === 'visible') {
+            map.setLayoutProperty("circle-outline", 'visibility', 'none');
+        }
+
+        
+    }
     
 </script>
  
