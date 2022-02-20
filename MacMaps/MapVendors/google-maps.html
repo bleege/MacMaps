@@ -9,6 +9,7 @@
         <script>
             var map;
             var marker;
+            var locationMarker;
 
             // Initialize and add the map
             function initMap() {
@@ -53,6 +54,27 @@
                 marker.setMap(null);
             }
 
+            function showUserLocation(lat, lon) {
+                const newLoc = { lat: lat, lng: lon };
+
+                locationMarker = new google.maps.Circle({
+                    strokeColor: "#29b6f6",
+                    strokeOpacity: 0.5,
+                    strokeWeight: 10,
+                    fillColor: "#0277bd",
+                    fillOpacity: 0.9,
+                    map,
+                    center: newLoc,
+                    radius: 25,
+                  });
+                
+                map.setCenter(newLoc)
+                map.setZoom(16)
+            }
+            
+            function hideUserLocation() {
+                locationMarker.setMap(null)
+            }
 
         </script>
   </head>

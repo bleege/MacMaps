@@ -76,5 +76,16 @@ final class GoogleMapsView: NSViewRepresentable {
         webView.evaluateJavaScript(javaScript)
     }
 
+    func showUserLocation(_ location: CLLocationCoordinate2D) {
+        print("\(#function) - location = \(location)")
+        let javaScript = "showUserLocation(\(location.latitude), \(location.longitude));"
+        webView.evaluateJavaScript(javaScript)
+    }
+    
+    func hideUserLocation() {
+        print("\(#function)")
+        let javaScript = "hideUserLocation();"
+        webView.evaluateJavaScript(javaScript)
+    }
     
 }

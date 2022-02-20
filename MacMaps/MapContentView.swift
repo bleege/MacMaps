@@ -110,7 +110,17 @@ struct MapContentView: View {
             googleMapsView.changeMapStyle(mapStyle)
         })
         .onReceive(viewModel.$showUserLocation, perform: { showUserLocation in
-            appleMapView.mapView.showsUserLocation = showUserLocation
+            
+            if viewModel.mapVendor == .appleMaps {
+                appleMapView.mapView.showsUserLocation = showUserLocation
+            } else if viewModel.mapVendor == .googleMaps {
+                if showUserLocation {
+                    googleMapsView.showUserLocation(viewModel.mapRegion.center)
+                } else {
+                    googleMapsView.hideUserLocation()
+                }
+            }
+
         })
         .onReceive(viewModel.$searchResultApplePlacemark, perform: { placemark in
             guard let placemark = placemark else { return }
