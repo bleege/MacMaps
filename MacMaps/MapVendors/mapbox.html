@@ -54,40 +54,48 @@ body { margin: 0; padding: 0; }
 
         var circle = turf.circle(center, radius, options);
 
-        map.addLayer({
-            "id": "circle-fill",
-            "type": "fill",
-            "source": {
-                "type": "geojson",
-                "data": circle
-            },
-            "layout": {
-                'visibility': 'visible'
-            },
-            "paint": {
-                "fill-color": "#0277bd",
-                "fill-opacity": 0.9
-            }
-        });
-        map.addLayer({
-            "id": "circle-outline",
-            "type": "line",
-            "source": {
-                "type": "geojson",
-                "data": circle
-            },
-            "layout": {
-                'visibility': 'visible'
-            },
-            "paint": {
-                "line-color": "#29b6f6",
-                "line-opacity": 0.5,
-                "line-width": 10,
-                "line-offset": 5
-            }
-        });
+        if (!map.getSource("userLocationData")) {
+            map.addSource('userLocationData', { type: 'geojson', data: circle });
+        } else {
+            // Update Source data
+            map.getSource("userLocationData").setData(circle);
+        }
         
-        changeCenter(lat, lon)
+        // If source / layer not added yet then add
+        if (!map.getLayer("circle-fill") && !map.getLayer("circle-outline")) {
+            
+            map.addLayer({
+                "id": "circle-fill",
+                "type": "fill",
+                "source": "userLocationData",
+                "layout": {
+                    'visibility': 'visible'
+                },
+                "paint": {
+                    "fill-color": "#0277bd",
+                    "fill-opacity": 0.9
+                }
+            });
+            map.addLayer({
+                "id": "circle-outline",
+                "type": "line",
+                "source": "userLocationData",
+                "layout": {
+                    'visibility': 'visible'
+                },
+                "paint": {
+                    "line-color": "#29b6f6",
+                    "line-opacity": 0.5,
+                    "line-width": 10,
+                    "line-offset": 5
+                }
+            });
+        } else {
+            map.setLayoutProperty("circle-fill", 'visibility', 'visible');
+            map.setLayoutProperty("circle-outline", 'visibility', 'visible');
+        }
+        
+        changeCenter(lat, lon);
         
     }
     
