@@ -21,6 +21,12 @@
                     center: uluru,
                     disableDefaultUI: true
                 });
+                
+                marker = new google.maps.Marker({
+                    position: uluru,
+                    map: map,
+                    visible: false,
+                });
             }
             
             function changeCenter(lat, lon) {
@@ -35,23 +41,15 @@
             function addMarker(lat, lon) {
                 const newLoc = { lat: lat, lng: lon };
                 
-                marker= new google.maps.Circle({
-                      strokeColor: "#FF0000",
-                      strokeOpacity: 0.8,
-                      strokeWeight: 2,
-                      fillColor: "#FF0000",
-                      fillOpacity: 0.35,
-                      map,
-                      center: newLoc,
-                      radius: 1000,
-                    });
+                marker.setPosition(newLoc)
+                marker.setVisible(true)
                 
                 map.setCenter(newLoc)
                 map.setZoom(12)
             }
             
             function clearMarker() {
-                marker.setMap(null);
+                marker.setVisible(false)
             }
 
             function showUserLocation(lat, lon) {
