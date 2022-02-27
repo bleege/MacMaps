@@ -9,6 +9,8 @@ import Combine
 import CoreLocation
 import MapKit
 import GeoJSON
+import Intents
+import Contacts
 
 class MapContentViewModel: ObservableObject {
     
@@ -133,16 +135,10 @@ class MapContentViewModel: ObservableObject {
     
     @Published
     var searchSuggestions = [CLPlacemark]()
-    
+
     @Published
-    var searchResultApplePlacemark: CLPlacemark?
-    
-    @Published
-    var searchResultMapboxFeature: Feature?
-    
-    @Published
-    var searchResultGoogleMapLocation: GoogleMapsGeocodingResponse?
-    
+    var searchResultPlacemark: CLPlacemark?
+        
     let searchCancelledPublisher = PassthroughSubject<Bool, Never>()
         
     private var cancellables = Set<AnyCancellable>()
@@ -197,7 +193,7 @@ class MapContentViewModel: ObservableObject {
                 }
                 
                 if let placemark = placemarks?[0] {
-                    self?.searchResultApplePlacemark = placemark
+                    self?.searchResultPlacemark = placemark
                 }
                 
             }
@@ -219,8 +215,14 @@ class MapContentViewModel: ObservableObject {
                 }, receiveValue: { [weak self] featureCollection in
                     print("Received featureCollection from Geocode Search")
                     
-                    if let feature = featureCollection.features.first {
-                        self?.searchResultMapboxFeature = feature
+                    if let feature = featureCollection.features.first, let geometry = feature.geometry {
+                        switch geometry {
+                        case .point (let point):
+                            let placemark = CLPlacemark(location: CLLocation(latitude: point.coordinates.latitude, longitude: point.coordinates.longitude), name: nil, postalAddress: nil)
+                            self?.searchResultPlacemark = placemark
+                        default:
+                            return
+                        }
                     }
                 })
                 .store(in: &cancellables)
@@ -240,8 +242,10 @@ class MapContentViewModel: ObservableObject {
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { complete in
                     print("Received completion for Google Geocode Request: \(complete)")
-                }, receiveValue: { json in
-                    self.searchResultGoogleMapLocation = json
+                }, receiveValue: { [weak self] json in
+                    let feature = json.results[0].geometry
+                    let placemark = CLPlacemark(location: CLLocation(latitude: feature.location.lat, longitude: feature.location.lng), name: nil, postalAddress: nil)
+                    self?.searchResultPlacemark = placemark
                 })
                 .store(in: &cancellables)
         }

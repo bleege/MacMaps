@@ -11,6 +11,8 @@
 		A207B4E1275DD0F800BE3E58 /* MapContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A207B4E0275DD0F800BE3E58 /* MapContentViewModel.swift */; };
 		A20F478E275B466A00ED7D81 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A20F478D275B466A00ED7D81 /* MapKit.framework */; platformFilter = maccatalyst; };
 		A21932F32773A39E003B5ABA /* Combine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A21932F22773A39E003B5ABA /* Combine.framework */; platformFilter = maccatalyst; };
+		A21EB14927CB532F003E2ED8 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A21EB14827CB532F003E2ED8 /* Contacts.framework */; platformFilter = maccatalyst; };
+		A21EB14A27CB5337003E2ED8 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A21EEF502793C21B001DEF35 /* Intents.framework */; platformFilter = maccatalyst; };
 		A230673E27A10D3B009D5732 /* GeoJSON in Frameworks */ = {isa = PBXBuildFile; productRef = A230673D27A10D3B009D5732 /* GeoJSON */; };
 		A2380F95279916F500ED2282 /* MapboxMapsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2380F94279916F500ED2282 /* MapboxMapsView.swift */; };
 		A2380F972799177700ED2282 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2380F962799177700ED2282 /* WebKit.framework */; platformFilter = maccatalyst; };
@@ -37,6 +39,7 @@
 		A207B4E0275DD0F800BE3E58 /* MapContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapContentViewModel.swift; sourceTree = "<group>"; };
 		A20F478D275B466A00ED7D81 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		A21932F22773A39E003B5ABA /* Combine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Combine.framework; path = System/Library/Frameworks/Combine.framework; sourceTree = SDKROOT; };
+		A21EB14827CB532F003E2ED8 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
 		A21EEF502793C21B001DEF35 /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
 		A2380F94279916F500ED2282 /* MapboxMapsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapboxMapsView.swift; sourceTree = "<group>"; };
 		A2380F962799177700ED2282 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -70,6 +73,8 @@
 				A2380F972799177700ED2282 /* WebKit.framework in Frameworks */,
 				A230673E27A10D3B009D5732 /* GeoJSON in Frameworks */,
 				A20F478E275B466A00ED7D81 /* MapKit.framework in Frameworks */,
+				A21EB14927CB532F003E2ED8 /* Contacts.framework in Frameworks */,
+				A21EB14A27CB5337003E2ED8 /* Intents.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,6 +84,7 @@
 		A20F478C275B466A00ED7D81 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A21EB14827CB532F003E2ED8 /* Contacts.framework */,
 				A2380F962799177700ED2282 /* WebKit.framework */,
 				A21EEF502793C21B001DEF35 /* Intents.framework */,
 				A21932F22773A39E003B5ABA /* Combine.framework */,

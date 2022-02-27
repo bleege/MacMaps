@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 import WebKit
 import CoreLocation
-import GeoJSON
 import Combine
 
 final class MapboxMapsView: NSViewRepresentable {
@@ -67,15 +66,11 @@ final class MapboxMapsView: NSViewRepresentable {
         webView.evaluateJavaScript(javaScript)
     }
     
-    func showMarker(_ feature: GeoJSON.Feature) {
-        print("\(#function) - feature = \(feature)")
-        switch feature.geometry {
-        case .point(let point):
-            let javaScript = "addMarker(\(point.coordinates.latitude), \(point.coordinates.longitude));"
-            webView.evaluateJavaScript(javaScript)
-        default:
-            print("no op")
-        }
+    func showMarker(_ placemark: CLPlacemark) {
+        print("\(#function) - placemark = \(placemark)")
+        guard let coordinate = placemark.location?.coordinate else { return }
+        let javaScript = "addMarker(\(coordinate.latitude), \(coordinate.longitude));"
+        webView.evaluateJavaScript(javaScript)
     }
     
     func clearMarker() {

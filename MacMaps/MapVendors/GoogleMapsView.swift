@@ -63,10 +63,10 @@ final class GoogleMapsView: NSViewRepresentable {
         webView.evaluateJavaScript(javaScript)
     }
 
-    func showMarker(_ feature: GoogleMapsGeocodingResponse) {
-        print("\(#function) - feature = \(feature)")
-        let point = feature.results[0].geometry
-        let javaScript = "addMarker(\(point.location.lat), \(point.location.lng));"
+    func showMarker(_ placemark: CLPlacemark) {
+        print("\(#function) - placemark = \(placemark)")
+        guard let coordinate = placemark.location?.coordinate else { return }
+        let javaScript = "addMarker(\(coordinate.latitude), \(coordinate.longitude));"
         webView.evaluateJavaScript(javaScript)
     }
     

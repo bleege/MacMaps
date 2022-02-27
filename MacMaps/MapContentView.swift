@@ -128,17 +128,15 @@ struct MapContentView: View {
             }
 
         })
-        .onReceive(viewModel.$searchResultApplePlacemark, perform: { placemark in
+        .onReceive(viewModel.$searchResultPlacemark, perform: { placemark in
             guard let placemark = placemark else { return }
-            appleMapView.showMarker(placemark)
-        })
-        .onReceive(viewModel.$searchResultMapboxFeature, perform: { feature in
-            guard let feature = feature else { return }
-            mapboxMapView.showMarker(feature)
-        })
-        .onReceive(viewModel.$searchResultGoogleMapLocation, perform: { location in
-            guard let location = location else { return }
-            googleMapsView.showMarker(location)
+            if viewModel.mapVendor == .appleMaps {
+                appleMapView.showMarker(placemark)
+            } else if viewModel.mapVendor == .mapbox {
+                mapboxMapView.showMarker(placemark)
+            } else if viewModel.mapVendor == .googleMaps {
+                googleMapsView.showMarker(placemark)
+            }
         })
         .onReceive(viewModel.searchCancelledPublisher, perform: { didCancel in
             if viewModel.mapVendor == .appleMaps {
