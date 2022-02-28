@@ -29,9 +29,13 @@
                 });
             }
             
-            function changeCenter(lat, lon) {
+            function setCenter(lat, lon) {
                 const newLoc = { lat: lat, lng: lon };
                 map.setCenter(newLoc);
+            }
+            
+            function setZoom(zoom) {
+                map.setZoom(zoom)
             }
             
             function changeStyle(styleURL) {

@@ -67,6 +67,12 @@ final class AppleMapsView: NSViewRepresentable {
         return view
     }
     
-    func updateNSView(_ nsView: NSViewType, context: Context) { }
+    func updateNSView(_ nsView: NSViewType, context: Context) {
+        
+        mapView.setRegion(MKCoordinateRegion(center: LocationManager.shared.currentLocation.value.coordinate,
+                                             latitudinalMeters: 100000,
+                                             longitudinalMeters: 100000), animated: false)
+        
+    }
     
 }

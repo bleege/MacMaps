@@ -15,7 +15,7 @@ class LocationManager: NSObject {
     
     private let manager = CLLocationManager()
     
-    var currentLocation = CurrentValueSubject<CLLocation, Never>(CLLocation(latitude: 0, longitude: 0))
+    var currentLocation = CurrentValueSubject<CLLocation, Never>(CLLocation(latitude: 50.45031, longitude: 30.53992))
 
     @Published
     var isMonitoringLocation = false

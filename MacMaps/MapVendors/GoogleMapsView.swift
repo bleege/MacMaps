@@ -28,6 +28,7 @@ final class GoogleMapsView: NSViewRepresentable {
         webViewNavigationDelegate.mapFinishedLoadingPublisher
             .sink(receiveValue: { [weak self] didFinish in
                 self?.setCenter(LocationManager.shared.currentLocation.value.coordinate)
+                self?.setZoom(8)
             }).store(in: &mapFinishedLoadingCancelable)
     }
     
@@ -59,7 +60,13 @@ final class GoogleMapsView: NSViewRepresentable {
     
     func setCenter(_ center: CLLocationCoordinate2D) {
         print("\(#function) - center = \(center)")
-        let javaScript = "changeCenter(\(center.latitude), \(center.longitude));"
+        let javaScript = "setCenter(\(center.latitude), \(center.longitude));"
+        webView.evaluateJavaScript(javaScript)
+    }
+    
+    func setZoom(_ zoom: Int) {
+        print("\(#function) - zoom = \(zoom)")
+        let javaScript = "setZoom(\(zoom));"
         webView.evaluateJavaScript(javaScript)
     }
 
