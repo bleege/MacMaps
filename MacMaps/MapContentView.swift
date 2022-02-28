@@ -23,11 +23,12 @@ struct MapContentView: View {
     
     var body: some View {
         HStack {
-            if viewModel.mapVendor == .appleMaps {
+            switch viewModel.mapVendor {
+            case .appleMaps:
                 appleMapView
-            } else if viewModel.mapVendor == .mapbox {
+            case .mapbox:
                 mapboxMapView
-            } else if viewModel.mapVendor == .googleMaps {
+            case .googleMaps:
                 googleMapsView
             }
         }
@@ -42,22 +43,21 @@ struct MapContentView: View {
                 }
             }
             ToolbarItem(placement: .primaryAction) {
-
                 VStack {
-                    if viewModel.mapVendor == .appleMaps {
+                    switch viewModel.mapVendor {
+                    case .appleMaps:
                         Picker("Apple Styles", selection: $viewModel.selectedAppleMapType) {
                             ForEach(MapContentViewModel.AppleMapTypes.allCases) { mapType in
                                 Text(mapType.rawValue).tag(mapType.type)
                             }
                         }
-                    } else if viewModel.mapVendor == .mapbox {
+                    case .mapbox:
                         Picker("Mapbox Styles", selection: $viewModel.selectedMapboxMapStyle) {
                             ForEach(MapContentViewModel.MapboxStyles.allCases) { mapStyle in
                                 Text(mapStyle.rawValue).tag(mapStyle)
                             }
                         }
-                    } else if viewModel.mapVendor == .googleMaps {
-
+                    case .googleMaps:
                         Picker("Google Styles", selection: $viewModel.selectedGoogleMapStyle) {
                             ForEach(MapContentViewModel.GoogleMapStyles.allCases) { mapStyle in
                                 Text(mapStyle.rawValue).tag(mapStyle)
@@ -92,11 +92,12 @@ struct MapContentView: View {
             }
         }
         .onReceive(viewModel.$mapRegion, perform: { region in
-            if viewModel.mapVendor == .appleMaps {
+            switch viewModel.mapVendor {
+            case .appleMaps:
                 appleMapView.mapView.region = region
-            } else if viewModel.mapVendor == .mapbox {
+            case .mapbox:
                 mapboxMapView.setCenter(region.center)
-            } else if viewModel.mapVendor == .googleMaps {
+            case .googleMaps:
                 googleMapsView.setCenter(region.center)
             }
         })
@@ -110,40 +111,41 @@ struct MapContentView: View {
             googleMapsView.changeMapStyle(mapStyle)
         })
         .onReceive(viewModel.$showUserLocation, perform: { showUserLocation in
-            
-            if viewModel.mapVendor == .appleMaps {
+            switch viewModel.mapVendor {
+            case .appleMaps:
                 appleMapView.mapView.showsUserLocation = showUserLocation
-            } else if viewModel.mapVendor == .mapbox {
+            case .mapbox:
                 if showUserLocation {
                     mapboxMapView.showUserLocation(viewModel.mapRegion.center)
                 } else {
                     mapboxMapView.hideUserLocation()
                 }
-            } else if viewModel.mapVendor == .googleMaps {
+            case .googleMaps:
                 if showUserLocation {
                     googleMapsView.showUserLocation(viewModel.mapRegion.center)
                 } else {
                     googleMapsView.hideUserLocation()
                 }
             }
-
         })
         .onReceive(viewModel.$searchResultPlacemark, perform: { placemark in
             guard let placemark = placemark else { return }
-            if viewModel.mapVendor == .appleMaps {
+            switch viewModel.mapVendor {
+            case .appleMaps:
                 appleMapView.showMarker(placemark)
-            } else if viewModel.mapVendor == .mapbox {
+            case .mapbox:
                 mapboxMapView.showMarker(placemark)
-            } else if viewModel.mapVendor == .googleMaps {
+            case .googleMaps:
                 googleMapsView.showMarker(placemark)
             }
         })
         .onReceive(viewModel.searchCancelledPublisher, perform: { didCancel in
-            if viewModel.mapVendor == .appleMaps {
+            switch viewModel.mapVendor {
+            case .appleMaps:
                 appleMapView.clearMarker()
-            } else if viewModel.mapVendor == .mapbox {
+            case .mapbox:
                 mapboxMapView.clearMarker()
-            } else if viewModel.mapVendor == .googleMaps {
+            case .googleMaps:
                 googleMapsView.clearMarker()
             }
         })
