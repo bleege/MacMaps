@@ -35,6 +35,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A20730D927CDDD9900B26D34 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		A20730DA27CDDE3100B26D34 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		A207B4DE275DD0C600BE3E58 /* MapContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapContentView.swift; sourceTree = "<group>"; };
 		A207B4E0275DD0F800BE3E58 /* MapContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapContentViewModel.swift; sourceTree = "<group>"; };
 		A20F478D275B466A00ED7D81 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -148,6 +150,8 @@
 				A207B4E0275DD0F800BE3E58 /* MapContentViewModel.swift */,
 				A2E610DB2757304D0061FB22 /* Assets.xcassets */,
 				A2E610E02757304D0061FB22 /* MacMaps.entitlements */,
+				A20730D927CDDD9900B26D34 /* Debug.xcconfig */,
+				A20730DA27CDDE3100B26D34 /* Release.xcconfig */,
 				A2E610DD2757304D0061FB22 /* Preview Content */,
 			);
 			path = MacMaps;
@@ -261,6 +265,7 @@
 /* Begin XCBuildConfiguration section */
 		A2E610E12757304D0061FB22 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A20730D927CDDD9900B26D34 /* Debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -322,6 +327,7 @@
 		};
 		A2E610E22757304D0061FB22 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A20730DA27CDDE3100B26D34 /* Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -376,6 +382,7 @@
 		};
 		A2E610E42757304D0061FB22 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A20730D927CDDD9900B26D34 /* Debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -405,6 +412,7 @@
 		};
 		A2E610E52757304D0061FB22 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A20730DA27CDDE3100B26D34 /* Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
