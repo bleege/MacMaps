@@ -145,6 +145,9 @@ class MapContentViewModel: ObservableObject {
     
     private let geocoder = CLGeocoder()
     
+    private let googleMapsKey: String = Bundle.main.object(forInfoDictionaryKey: "GOOGLE_MAPS_KEY") as? String ?? ""
+    private let mapboxAccessToken: String = Bundle.main.object(forInfoDictionaryKey: "MAPBOX_ACCESS_TOKEN") as? String ?? ""
+    
     init() {
         LocationManager.shared.currentLocation.sink(receiveValue: { [weak self] location in
             self?.mapRegion.center = location.coordinate
@@ -200,7 +203,7 @@ class MapContentViewModel: ObservableObject {
         } else if mapVendor == .mapbox {
                         
             guard let fileName = searchQuery.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
-            let urlString = "https://api.mapbox.com/geocoding/v5/mapbox.places/\(fileName).json?access_token=pk.eyJ1IjoiYmxlZWdlIiwiYSI6InRIWGRhQTgifQ.aqpWzaYuYupQd78KaSK_SA"
+            let urlString = "https://api.mapbox.com/geocoding/v5/mapbox.places/\(fileName).json?access_token=\(mapboxAccessToken)"
                         
             guard let url = URL(string: urlString) else { return }
             
@@ -230,7 +233,7 @@ class MapContentViewModel: ObservableObject {
         } else if mapVendor == .googleMaps {
             
             guard let address = searchQuery.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
-            let urlString = "https://maps.googleapis.com/maps/api/geocode/json?address=\(address)&key=AIzaSyB11TbcmRU79EU-Iig8jb2MtHU411s8R6c"
+            let urlString = "https://maps.googleapis.com/maps/api/geocode/json?address=\(address)&key=\(googleMapsKey)"
                         
             guard let url = URL(string: urlString) else { return }
 
