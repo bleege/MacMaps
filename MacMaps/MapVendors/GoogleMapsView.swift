@@ -48,8 +48,16 @@ final class GoogleMapsView: NSViewRepresentable {
     }
     
     func updateNSView(_ nsView: NSViewType, context: Context) {
-        guard let url = Bundle.main.url(forResource: "google-maps", withExtension: "html") else { return }
-        webView.load(URLRequest(url: url))
+        if let filePath = Bundle.main.path(forResource: "google-maps", ofType: "html"),
+           let googleApiKey = Bundle.main.object(forInfoDictionaryKey: "GOOGLE_MAPS_KEY") as? String {
+            do {
+                let fileContents = try String(contentsOfFile: filePath)
+                let contentToLoad = fileContents.replacingOccurrences(of: "GOOGLE_MAPS_KEY", with: googleApiKey)
+                webView.loadHTMLString(contentToLoad, baseURL: nil)
+            } catch {
+                print("Error loading Google Maps HTML: \(error)")
+            }
+        }
     }
     
     func changeMapStyle(_ mapStyle: MapContentViewModel.GoogleMapStyles) {

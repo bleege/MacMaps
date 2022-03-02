@@ -47,6 +47,7 @@
 		A2380F962799177700ED2282 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		A2380F9827991A9D00ED2282 /* mapbox.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = mapbox.html; sourceTree = "<group>"; };
 		A247E5F227C0C01900C77DB4 /* GoogleMapsView+Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GoogleMapsView+Delegates.swift"; sourceTree = "<group>"; };
+		A272E35627CF380C004B0042 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A2A965BA27646CBB00EF20E8 /* MKMapType+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapType+Extensions.swift"; sourceTree = "<group>"; };
 		A2AC988D27AA4BF6007FA38E /* GoogleMapsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsView.swift; sourceTree = "<group>"; };
 		A2AC988F27AA4D88007FA38E /* google-maps.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "google-maps.html"; sourceTree = "<group>"; };
@@ -140,6 +141,7 @@
 		A2E610D62757304B0061FB22 /* MacMaps */ = {
 			isa = PBXGroup;
 			children = (
+				A272E35627CF380C004B0042 /* Info.plist */,
 				A2A965B927646C9C00EF20E8 /* Extensions */,
 				A2380F93279916A200ED2282 /* MapVendors */,
 				A2F957472772036E005FD53B /* LocationManager.swift */,
@@ -396,6 +398,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MacMaps/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "MacMaps uses this to show your location on the map.";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -426,6 +429,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MacMaps/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "MacMaps uses this to show your location on the map.";
 				LD_RUNPATH_SEARCH_PATHS = (
