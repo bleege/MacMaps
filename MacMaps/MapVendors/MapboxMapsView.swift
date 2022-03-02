@@ -49,8 +49,16 @@ final class MapboxMapsView: NSViewRepresentable {
     }
     
     func updateNSView(_ nsView: NSViewType, context: Context) {
-        guard let url = Bundle.main.url(forResource: "mapbox", withExtension: "html") else { return }
-        webView.load(URLRequest(url: url))
+        if let filePath = Bundle.main.path(forResource: "mapbox", ofType: "html"),
+           let googleApiKey = Bundle.main.object(forInfoDictionaryKey: "MAPBOX_ACCESS_TOKEN") as? String {
+            do {
+                let fileContents = try String(contentsOfFile: filePath)
+                let contentToLoad = fileContents.replacingOccurrences(of: "MAPBOX_ACCESS_TOKEN", with: googleApiKey)
+                webView.loadHTMLString(contentToLoad, baseURL: nil)
+            } catch {
+                print("Error loading Mapbox HTML: \(error)")
+            }
+        }
     }
     
     // MARK: - Map Functions
