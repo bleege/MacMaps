@@ -7,6 +7,10 @@ cyclomatic_complexity:
     warning: 15
     error: 20
 
+function_body_length:
+    warning: 80
+    error: 100
+
 line_length:
     warning: 120
     ignores_function_declarations: true
