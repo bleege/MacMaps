@@ -7,17 +7,32 @@
 
 import Foundation
 import WebKit
-import Combine
 
-class MapboxMapsViewDelegate: NSObject {
-    let mapFinishedLoadingPublisher = PassthroughSubject<Bool, Never>()
+protocol MapboxMapsViewDelegate {
+   
+    func mapFinishedLoading()
+    
 }
 
-extension MapboxMapsViewDelegate: WKNavigationDelegate {
+class MapboxMapsWebViewDelegate: NSObject {
+
+    var delegate: MapboxMapsViewDelegate?
+    
+}
+
+extension MapboxMapsWebViewDelegate: WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("WebView did finish loading")
-        mapFinishedLoadingPublisher.send(true)
+        delegate?.mapFinishedLoading()
+    }
+    
+}
+
+extension MapboxMapsView: MapboxMapsViewDelegate {
+    
+    func mapFinishedLoading() {
+        setCenter(LocationManager.shared.currentLocation.value.coordinate)
     }
     
 }
