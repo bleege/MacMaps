@@ -85,7 +85,7 @@ struct MapContentView: View {
         .onSubmit(of: .search) {
             viewModel.searchForLocation()
         }
-        .onChange(of: viewModel.searchQuery) { query in
+        .onChange(of: viewModel.searchQuery) { _ in
             if viewModel.searchQuery.isEmpty && !isSearching {
                 print("Search is cancelled")
                 viewModel.searchCancelledPublisher.send(true)
@@ -139,7 +139,7 @@ struct MapContentView: View {
                 googleMapsView.showMarker(placemark)
             }
         })
-        .onReceive(viewModel.searchCancelledPublisher, perform: { didCancel in
+        .onReceive(viewModel.searchCancelledPublisher, perform: { _ in
             switch viewModel.mapVendor {
             case .appleMaps:
                 appleMapView.clearMarker()

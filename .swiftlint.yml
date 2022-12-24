@@ -1,2 +1,15 @@
 disabled_rules:
     - trailing_whitespace
+    - class_delegate_protocol
+    - nesting
+
+cyclomatic_complexity:
+    warning: 15
+    error: 20
+
+line_length:
+    warning: 120
+    ignores_function_declarations: true
+    ignores_comments: true
+    ignores_interpolated_strings: true
+    ignores_urls: true
