@@ -9,7 +9,7 @@ import SwiftUI
 import MapKit
 import CoreLocation
 
-final class AppleMapsView: NSViewRepresentable {
+struct AppleMapsView: NSViewRepresentable {
     
     let mapView: MKMapView = {
         let mapView = MKMapView()
@@ -19,7 +19,7 @@ final class AppleMapsView: NSViewRepresentable {
     
     let mapViewDelegate = AppleMapsViewDelegate()
         
-    private var marker: MKPointAnnotation?
+    private var marker = MKPointAnnotation()
     
     init() {
         // Workaround for Structs
@@ -38,17 +38,13 @@ final class AppleMapsView: NSViewRepresentable {
             return true
         })
         mapView.removeAnnotations(nonUserAnnotations)
-        
-        marker = MKPointAnnotation()
-        guard let marker = marker else { return }
+
         marker.coordinate = coordinate
         mapView.addAnnotation(marker)
     }
     
     func clearMarker() {
-        guard let marker = marker else { return }
         mapView.removeAnnotation(marker)
-        self.marker = nil
     }
     
     // MARK: - NSViewRepresentable

@@ -5,19 +5,35 @@
 //  Created by Brad Leege on 2/19/22.
 //
 
-import Combine
 import Foundation
 import WebKit
 
-class GoogleMapsViewDelegate: NSObject {
-    let mapFinishedLoadingPublisher = PassthroughSubject<Bool, Never>()
+protocol GoogleMapsViewDelegate {
+   
+    func mapFinishedLoading()
+    
 }
 
-extension GoogleMapsViewDelegate: WKNavigationDelegate {
+class GoogleMapsWebViewDelegate: NSObject {
+
+    var delegate: GoogleMapsViewDelegate?
+    
+}
+
+extension GoogleMapsWebViewDelegate: WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("WebView did finish loading")
-        mapFinishedLoadingPublisher.send(true)
+        delegate?.mapFinishedLoading()
+    }
+    
+}
+
+extension GoogleMapsView: GoogleMapsViewDelegate {
+    
+    func mapFinishedLoading() {
+        setCenter(LocationManager.shared.currentLocation.value.coordinate)
+        setZoom(8)
     }
     
 }

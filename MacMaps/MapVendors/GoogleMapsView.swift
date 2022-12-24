@@ -9,9 +9,8 @@ import Foundation
 import SwiftUI
 import WebKit
 import CoreLocation
-import Combine
 
-final class GoogleMapsView: NSViewRepresentable {
+struct GoogleMapsView: NSViewRepresentable {
     
     private let webView: WKWebView = {
         let web = WKWebView()
@@ -19,17 +18,11 @@ final class GoogleMapsView: NSViewRepresentable {
         return web
     }()
     
-    private let webViewNavigationDelegate = GoogleMapsViewDelegate()
-    private var mapFinishedLoadingCancelable = Set<AnyCancellable>()
-    
-    init() {
-        webView.navigationDelegate = webViewNavigationDelegate
+    private let googleMapsWebViewDelegate = GoogleMapsWebViewDelegate()
         
-        webViewNavigationDelegate.mapFinishedLoadingPublisher
-            .sink(receiveValue: { [weak self] didFinish in
-                self?.setCenter(LocationManager.shared.currentLocation.value.coordinate)
-                self?.setZoom(8)
-            }).store(in: &mapFinishedLoadingCancelable)
+    init() {
+        googleMapsWebViewDelegate.delegate = self
+        webView.navigationDelegate = googleMapsWebViewDelegate
     }
     
     func makeNSView(context: Context) -> some NSView {
