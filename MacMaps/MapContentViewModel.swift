@@ -145,10 +145,13 @@ class MapContentViewModel: ObservableObject {
     
     private let geocoder = CLGeocoder()
     
-    private let googleMapsKey: String = Bundle.main.object(forInfoDictionaryKey: "GOOGLE_MAPS_KEY") as? String ?? ""
-    private let mapboxAccessToken: String = Bundle.main.object(forInfoDictionaryKey: "MAPBOX_ACCESS_TOKEN") as? String ?? ""
+    private let googleMapsKey: String
+    private let mapboxAccessToken: String
     
     init() {
+        googleMapsKey = Bundle.main.object(forInfoDictionaryKey: "GOOGLE_MAPS_KEY") as? String ?? ""
+        mapboxAccessToken = Bundle.main.object(forInfoDictionaryKey: "MAPBOX_ACCESS_TOKEN") as? String ?? ""
+        
         LocationManager.shared.currentLocation.sink(receiveValue: { [weak self] location in
             self?.mapRegion.center = location.coordinate
         }).store(in: &cancellables)
@@ -202,13 +205,15 @@ class MapContentViewModel: ObservableObject {
             }
         } else if mapVendor == .mapbox {
                         
-            guard let fileName = searchQuery.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
+            guard let fileName = searchQuery.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+                return
+            }
             let urlString = "https://api.mapbox.com/geocoding/v5/mapbox.places/\(fileName).json?access_token=\(mapboxAccessToken)"
                         
             guard let url = URL(string: urlString) else { return }
             
             URLSession.shared.dataTaskPublisher(for: url)
-                .tryMap() {
+                .tryMap {
                     return $0.data
                 }
                 .decode(type: FeatureCollection.self, decoder: JSONDecoder())
@@ -220,8 +225,12 @@ class MapContentViewModel: ObservableObject {
                     
                     if let feature = featureCollection.features.first, let geometry = feature.geometry {
                         switch geometry {
-                        case .point (let point):
-                            let placemark = CLPlacemark(location: CLLocation(latitude: point.coordinates.latitude, longitude: point.coordinates.longitude), name: nil, postalAddress: nil)
+                        case .point(let point):
+                            let location = CLLocation(latitude: point.coordinates.latitude,
+                                                      longitude: point.coordinates.longitude)
+                            let placemark = CLPlacemark(location: location,
+                                                        name: nil,
+                                                        postalAddress: nil)
                             self?.searchResultPlacemark = placemark
                         default:
                             return
@@ -232,7 +241,9 @@ class MapContentViewModel: ObservableObject {
             
         } else if mapVendor == .googleMaps {
             
-            guard let address = searchQuery.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
+            guard let address = searchQuery.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+                return
+            }
             let urlString = "https://maps.googleapis.com/maps/api/geocode/json?address=\(address)&key=\(googleMapsKey)"
                         
             guard let url = URL(string: urlString) else { return }
@@ -247,7 +258,10 @@ class MapContentViewModel: ObservableObject {
                     print("Received completion for Google Geocode Request: \(complete)")
                 }, receiveValue: { [weak self] json in
                     let feature = json.results[0].geometry
-                    let placemark = CLPlacemark(location: CLLocation(latitude: feature.location.lat, longitude: feature.location.lng), name: nil, postalAddress: nil)
+                    let location = CLLocation(latitude: feature.location.lat, longitude: feature.location.lng)
+                    let placemark = CLPlacemark(location: location,
+                                                name: nil,
+                                                postalAddress: nil)
                     self?.searchResultPlacemark = placemark
                 })
                 .store(in: &cancellables)

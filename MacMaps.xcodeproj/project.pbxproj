@@ -18,6 +18,7 @@
 		A2380F972799177700ED2282 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2380F962799177700ED2282 /* WebKit.framework */; platformFilter = maccatalyst; };
 		A2380F9927991A9D00ED2282 /* mapbox.html in Resources */ = {isa = PBXBuildFile; fileRef = A2380F9827991A9D00ED2282 /* mapbox.html */; };
 		A247E5F327C0C01900C77DB4 /* GoogleMapsView+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = A247E5F227C0C01900C77DB4 /* GoogleMapsView+Delegates.swift */; };
+		A2808E4F2957875100605B2E /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = A2808E4E2957875100605B2E /* .swiftlint.yml */; };
 		A2A965BB27646CBB00EF20E8 /* MKMapType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A965BA27646CBB00EF20E8 /* MKMapType+Extensions.swift */; };
 		A2AC988E27AA4BF6007FA38E /* GoogleMapsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AC988D27AA4BF6007FA38E /* GoogleMapsView.swift */; };
 		A2AC989027AA4D88007FA38E /* google-maps.html in Resources */ = {isa = PBXBuildFile; fileRef = A2AC988F27AA4D88007FA38E /* google-maps.html */; };
@@ -48,6 +49,7 @@
 		A2380F9827991A9D00ED2282 /* mapbox.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = mapbox.html; sourceTree = "<group>"; };
 		A247E5F227C0C01900C77DB4 /* GoogleMapsView+Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GoogleMapsView+Delegates.swift"; sourceTree = "<group>"; };
 		A272E35627CF380C004B0042 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A2808E4E2957875100605B2E /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		A2A965BA27646CBB00EF20E8 /* MKMapType+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapType+Extensions.swift"; sourceTree = "<group>"; };
 		A2AC988D27AA4BF6007FA38E /* GoogleMapsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsView.swift; sourceTree = "<group>"; };
 		A2AC988F27AA4D88007FA38E /* google-maps.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "google-maps.html"; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 		A2E610CB2757304B0061FB22 = {
 			isa = PBXGroup;
 			children = (
+				A2808E4E2957875100605B2E /* .swiftlint.yml */,
 				A2E610D62757304B0061FB22 /* MacMaps */,
 				A2E610D52757304B0061FB22 /* Products */,
 				A20F478C275B466A00ED7D81 /* Frameworks */,
@@ -177,6 +180,7 @@
 				A2E610D02757304B0061FB22 /* Sources */,
 				A2E610D12757304B0061FB22 /* Frameworks */,
 				A2E610D22757304B0061FB22 /* Resources */,
+				A2808E4D295785E100605B2E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -198,7 +202,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1310;
-				LastUpgradeCheck = 1320;
+				LastUpgradeCheck = 1420;
 				TargetAttributes = {
 					A2E610D32757304B0061FB22 = {
 						CreatedOnToolsVersion = 13.1;
@@ -231,6 +235,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2808E4F2957875100605B2E /* .swiftlint.yml in Resources */,
 				A2E610DF2757304D0061FB22 /* Preview Assets.xcassets in Resources */,
 				A2E610DC2757304D0061FB22 /* Assets.xcassets in Resources */,
 				A2AC989027AA4D88007FA38E /* google-maps.html in Resources */,
@@ -239,6 +244,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A2808E4D295785E100605B2E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A2E610D02757304B0061FB22 /* Sources */ = {
@@ -300,6 +325,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -324,6 +350,7 @@
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -362,6 +389,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -379,6 +407,7 @@
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -393,6 +422,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"MacMaps/Preview Content\"";
 				DEVELOPMENT_TEAM = 98VS3NV9WE;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -424,6 +454,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"MacMaps/Preview Content\"";
 				DEVELOPMENT_TEAM = 98VS3NV9WE;
 				ENABLE_HARDENED_RUNTIME = YES;

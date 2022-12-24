@@ -19,7 +19,7 @@ extension AppleMapsViewDelegate: MKMapViewDelegate {
         
         var pin = mapView.dequeueReusableAnnotationView(withIdentifier: "Pin")
         
-        if (pin == nil) {
+        if pin == nil {
             pin = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "Pin")
         }
         pin?.displayPriority = .required
