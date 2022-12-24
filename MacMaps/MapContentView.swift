@@ -69,9 +69,9 @@ struct MapContentView: View {
             ToolbarItem(placement: .primaryAction) {
                 Button(action: {
                     viewModel.toggleLocationMonitoring()
-                }) {
+                }, label: {
                     Image(systemName: viewModel.locationButtonImageName)
-                }
+                })
             }
         }
         .searchable(text: $viewModel.searchQuery,
