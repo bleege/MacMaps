@@ -44,10 +44,10 @@ struct MapboxMapsView: NSViewRepresentable {
     
     func updateNSView(_ nsView: NSViewType, context: Context) {
         if let filePath = Bundle.main.path(forResource: "mapbox", ofType: "html"),
-           let googleApiKey = Bundle.main.object(forInfoDictionaryKey: "MAPBOX_ACCESS_TOKEN") as? String {
+           let mapboxAccessToken = Bundle.main.object(forInfoDictionaryKey: "MAPBOX_ACCESS_TOKEN") as? String {
             do {
                 let fileContents = try String(contentsOfFile: filePath)
-                let contentToLoad = fileContents.replacingOccurrences(of: "MAPBOX_ACCESS_TOKEN", with: googleApiKey)
+                let contentToLoad = fileContents.replacingOccurrences(of: "MAPBOX_ACCESS_TOKEN", with: mapboxAccessToken)
                 webView.loadHTMLString(contentToLoad, baseURL: nil)
             } catch {
                 print("Error loading Mapbox HTML: \(error)")
