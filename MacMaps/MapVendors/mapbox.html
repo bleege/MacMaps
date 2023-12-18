@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <title>MacMaps - Mapbox</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-<link href="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.css" rel="stylesheet">
-<script src="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
 <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
 <style>
 body { margin: 0; padding: 0; }
@@ -18,7 +18,6 @@ body { margin: 0; padding: 0; }
     mapboxgl.accessToken = 'MAPBOX_ACCESS_TOKEN';
     const map = new mapboxgl.Map({
         container: 'map', // container ID
-        style: 'mapbox://styles/mapbox/streets-v11', // style URL
         center: [-74.5, 40], // starting position [lng, lat]
         zoom: 9 // starting zoom
     });
