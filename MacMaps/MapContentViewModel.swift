@@ -54,6 +54,7 @@ class MapContentViewModel: ObservableObject {
     enum MapboxStyles: String, CaseIterable, Identifiable {
         var id: Self { self }
         
+        case standard = "Standard"
         case streets = "Streets"
         case outdoors = "Outdoors"
         case light = "Light"
@@ -65,6 +66,8 @@ class MapContentViewModel: ObservableObject {
         
         var styleURL: String {
             switch self {
+            case .standard:
+                return "mapbox://styles/mapbox/standard"
             case .streets:
                 return "mapbox://styles/mapbox/streets-v11"
             case .outdoors:
