@@ -11,7 +11,7 @@ import SwiftUI
 
 struct MapContentView: View {
 
-    @ObservedObject
+    @State
     private var viewModel = MapContentViewModel()
     
     // Map Vendors
@@ -20,17 +20,10 @@ struct MapContentView: View {
     private let mapboxMapView = MapboxMapsView()
     
     @Environment(\.isSearching) private var isSearching: Bool
-    
+        
     var body: some View {
         HStack {
-            switch viewModel.mapVendor {
-            case .appleMaps:
-                appleMapView
-            case .mapbox:
-                mapboxMapView
-            case .googleMaps:
-                googleMapsView
-            }
+            mapView()
         }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
@@ -88,10 +81,10 @@ struct MapContentView: View {
         .onChange(of: viewModel.searchQuery) { _ in
             if viewModel.searchQuery.isEmpty && !isSearching {
                 print("Search is cancelled")
-                viewModel.searchCancelledPublisher.send(true)
+                viewModel.searchCancelled = true
             }
         }
-        .onReceive(viewModel.$mapRegion, perform: { region in
+        .onChange(of: viewModel.mapRegion) { region in
             switch viewModel.mapVendor {
             case .appleMaps:
                 appleMapView.mapView.region = region
@@ -100,17 +93,17 @@ struct MapContentView: View {
             case .googleMaps:
                 googleMapsView.setCenter(region.center)
             }
-        })
-        .onReceive(viewModel.$selectedAppleMapType, perform: { mapType in
+        }
+        .onChange(of: viewModel.selectedAppleMapType) { mapType in
             appleMapView.mapView.mapType = mapType
-        })
-        .onReceive(viewModel.$selectedMapboxMapStyle, perform: { mapStyle in
+        }
+        .onChange(of: viewModel.selectedMapboxMapStyle) { mapStyle in
             mapboxMapView.changeMapStyle(mapStyle)
-        })
-        .onReceive(viewModel.$selectedGoogleMapStyle, perform: { mapStyle in
+        }
+        .onChange(of: viewModel.selectedGoogleMapStyle) { mapStyle in
             googleMapsView.changeMapStyle(mapStyle)
-        })
-        .onReceive(viewModel.$showUserLocation, perform: { showUserLocation in
+        }
+        .onChange(of: viewModel.showUserLocation) { showUserLocation in
             switch viewModel.mapVendor {
             case .appleMaps:
                 appleMapView.mapView.showsUserLocation = showUserLocation
@@ -127,8 +120,8 @@ struct MapContentView: View {
                     googleMapsView.hideUserLocation()
                 }
             }
-        })
-        .onReceive(viewModel.$searchResultPlacemark, perform: { placemark in
+        }
+        .onChange(of: viewModel.searchResultPlacemark) { placemark in
             guard let placemark = placemark else { return }
             switch viewModel.mapVendor {
             case .appleMaps:
@@ -138,8 +131,8 @@ struct MapContentView: View {
             case .googleMaps:
                 googleMapsView.showMarker(placemark)
             }
-        })
-        .onReceive(viewModel.searchCancelledPublisher, perform: { _ in
+        }
+        .onChange(of: viewModel.searchCancelled) { _ in
             switch viewModel.mapVendor {
             case .appleMaps:
                 appleMapView.clearMarker()
@@ -148,7 +141,18 @@ struct MapContentView: View {
             case .googleMaps:
                 googleMapsView.clearMarker()
             }
-        })
+        }
+    }
+    
+    @ViewBuilder private func mapView() -> some View {
+        switch viewModel.mapVendor {
+        case .appleMaps:
+            appleMapView
+        case .mapbox:
+            mapboxMapView
+        case .googleMaps:
+            googleMapsView
+        }
     }
     
 }

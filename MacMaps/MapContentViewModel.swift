@@ -12,7 +12,8 @@ import GeoJSON
 import Intents
 import Contacts
 
-class MapContentViewModel: ObservableObject {
+@Observable
+class MapContentViewModel {
     
     enum MapVendor: String, CaseIterable, Identifiable {
         var id: Self { self }
@@ -111,38 +112,28 @@ class MapContentViewModel: ObservableObject {
         
     }
     
-    @Published
     var mapVendor: MapVendor = .mapbox
     
-    @Published
     var mapRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 43.07472, longitude: -89.38421),
                                        span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
     
-    @Published
     var selectedAppleMapType = MKMapType.standard
     
-    @Published
     var selectedMapboxMapStyle: MapboxStyles = .streets
     
-    @Published
     var selectedGoogleMapStyle: GoogleMapStyles = .roadmap
     
-    @Published
     var locationButtonImageName = "location.fill"
     
-    @Published
     var showUserLocation = true
     
-    @Published
     var searchQuery = ""
     
-    @Published
     var searchSuggestions = [CLPlacemark]()
 
-    @Published
     var searchResultPlacemark: CLPlacemark?
         
-    let searchCancelledPublisher = PassthroughSubject<Bool, Never>()
+    var searchCancelled = false
         
     private var cancellables = Set<AnyCancellable>()
     

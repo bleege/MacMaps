@@ -8,7 +8,7 @@
 import Foundation
 import MapKit
 
-extension MKMapType: Identifiable {
+extension MKMapType: @retroactive Identifiable {
 
     // Identifiable
     public var id: Self { self }

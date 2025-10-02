@@ -14,6 +14,7 @@
 		A21EB14927CB532F003E2ED8 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A21EB14827CB532F003E2ED8 /* Contacts.framework */; platformFilter = maccatalyst; };
 		A21EB14A27CB5337003E2ED8 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A21EEF502793C21B001DEF35 /* Intents.framework */; platformFilter = maccatalyst; };
 		A230673E27A10D3B009D5732 /* GeoJSON in Frameworks */ = {isa = PBXBuildFile; productRef = A230673D27A10D3B009D5732 /* GeoJSON */; };
+		A230E22C2E8E203900214754 /* MKCoordinateRegion+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A230E22B2E8E203900214754 /* MKCoordinateRegion+Extensions.swift */; };
 		A2380F95279916F500ED2282 /* MapboxMapsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2380F94279916F500ED2282 /* MapboxMapsView.swift */; };
 		A2380F972799177700ED2282 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2380F962799177700ED2282 /* WebKit.framework */; platformFilter = maccatalyst; };
 		A2380F9927991A9D00ED2282 /* mapbox.html in Resources */ = {isa = PBXBuildFile; fileRef = A2380F9827991A9D00ED2282 /* mapbox.html */; };
@@ -44,6 +45,7 @@
 		A21932F22773A39E003B5ABA /* Combine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Combine.framework; path = System/Library/Frameworks/Combine.framework; sourceTree = SDKROOT; };
 		A21EB14827CB532F003E2ED8 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
 		A21EEF502793C21B001DEF35 /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
+		A230E22B2E8E203900214754 /* MKCoordinateRegion+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKCoordinateRegion+Extensions.swift"; sourceTree = "<group>"; };
 		A2380F94279916F500ED2282 /* MapboxMapsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapboxMapsView.swift; sourceTree = "<group>"; };
 		A2380F962799177700ED2282 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		A2380F9827991A9D00ED2282 /* mapbox.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = mapbox.html; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				A2A965BA27646CBB00EF20E8 /* MKMapType+Extensions.swift */,
+				A230E22B2E8E203900214754 /* MKCoordinateRegion+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 				A247E5F327C0C01900C77DB4 /* GoogleMapsView+Delegates.swift in Sources */,
 				A2AC988E27AA4BF6007FA38E /* GoogleMapsView.swift in Sources */,
 				A2A965BB27646CBB00EF20E8 /* MKMapType+Extensions.swift in Sources */,
+				A230E22C2E8E203900214754 /* MKCoordinateRegion+Extensions.swift in Sources */,
 				A2E610DA2757304B0061FB22 /* ContentView.swift in Sources */,
 				A207B4DF275DD0C600BE3E58 /* MapContentView.swift in Sources */,
 				A2F957482772036E005FD53B /* LocationManager.swift in Sources */,
@@ -435,6 +439,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.leege.MacMaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -467,6 +472,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.leege.MacMaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
