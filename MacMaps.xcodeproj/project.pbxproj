@@ -20,6 +20,7 @@
 		A2380F9927991A9D00ED2282 /* mapbox.html in Resources */ = {isa = PBXBuildFile; fileRef = A2380F9827991A9D00ED2282 /* mapbox.html */; };
 		A247E5F327C0C01900C77DB4 /* GoogleMapsView+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = A247E5F227C0C01900C77DB4 /* GoogleMapsView+Delegates.swift */; };
 		A2808E4F2957875100605B2E /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = A2808E4E2957875100605B2E /* .swiftlint.yml */; };
+		A29674412E8F8402007D5734 /* MapVendor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29674402E8F8402007D5734 /* MapVendor.swift */; };
 		A2A965BB27646CBB00EF20E8 /* MKMapType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A965BA27646CBB00EF20E8 /* MKMapType+Extensions.swift */; };
 		A2AC988E27AA4BF6007FA38E /* GoogleMapsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AC988D27AA4BF6007FA38E /* GoogleMapsView.swift */; };
 		A2AC989027AA4D88007FA38E /* google-maps.html in Resources */ = {isa = PBXBuildFile; fileRef = A2AC988F27AA4D88007FA38E /* google-maps.html */; };
@@ -52,6 +53,7 @@
 		A247E5F227C0C01900C77DB4 /* GoogleMapsView+Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GoogleMapsView+Delegates.swift"; sourceTree = "<group>"; };
 		A272E35627CF380C004B0042 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A2808E4E2957875100605B2E /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		A29674402E8F8402007D5734 /* MapVendor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVendor.swift; sourceTree = "<group>"; };
 		A2A965BA27646CBB00EF20E8 /* MKMapType+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapType+Extensions.swift"; sourceTree = "<group>"; };
 		A2AC988D27AA4BF6007FA38E /* GoogleMapsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsView.swift; sourceTree = "<group>"; };
 		A2AC988F27AA4D88007FA38E /* google-maps.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "google-maps.html"; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				A247E5F227C0C01900C77DB4 /* GoogleMapsView+Delegates.swift */,
 				A2AC988F27AA4D88007FA38E /* google-maps.html */,
 				A2B48D9427B235C0002EA5B0 /* GoogleMapsGeocodingResponse.swift */,
+				A29674402E8F8402007D5734 /* MapVendor.swift */,
 			);
 			path = MapVendors;
 			sourceTree = "<group>";
@@ -279,6 +282,7 @@
 				A2A965BB27646CBB00EF20E8 /* MKMapType+Extensions.swift in Sources */,
 				A230E22C2E8E203900214754 /* MKCoordinateRegion+Extensions.swift in Sources */,
 				A2E610DA2757304B0061FB22 /* ContentView.swift in Sources */,
+				A29674412E8F8402007D5734 /* MapVendor.swift in Sources */,
 				A207B4DF275DD0C600BE3E58 /* MapContentView.swift in Sources */,
 				A2F957482772036E005FD53B /* LocationManager.swift in Sources */,
 				A207B4E1275DD0F800BE3E58 /* MapContentViewModel.swift in Sources */,
