@@ -1,5 +1,5 @@
 //
-//  AppleMapsView.swift
+//  MapContentView.swift
 //  MacMaps
 //
 //  Created by Brad Leege on 12/5/21.
@@ -78,13 +78,13 @@ struct MapContentView: View {
         .onSubmit(of: .search) {
             viewModel.searchForLocation()
         }
-        .onChange(of: viewModel.searchQuery) { _ in
+        .onChange(of: viewModel.searchQuery) {
             if viewModel.searchQuery.isEmpty && !isSearching {
                 print("Search is cancelled")
                 viewModel.searchCancelled = true
             }
         }
-        .onChange(of: viewModel.mapRegion) { region in
+        .onChange(of: viewModel.mapRegion) { _, region in
             switch viewModel.mapVendor {
             case .appleMaps:
                 appleMapView.mapView.region = region
@@ -94,16 +94,16 @@ struct MapContentView: View {
                 googleMapsView.setCenter(region.center)
             }
         }
-        .onChange(of: viewModel.selectedAppleMapType) { mapType in
+        .onChange(of: viewModel.selectedAppleMapType) { _, mapType in
             appleMapView.mapView.mapType = mapType
         }
-        .onChange(of: viewModel.selectedMapboxMapStyle) { mapStyle in
+        .onChange(of: viewModel.selectedMapboxMapStyle) { _, mapStyle in
             mapboxMapView.changeMapStyle(mapStyle)
         }
-        .onChange(of: viewModel.selectedGoogleMapStyle) { mapStyle in
+        .onChange(of: viewModel.selectedGoogleMapStyle) { _, mapStyle in
             googleMapsView.changeMapStyle(mapStyle)
         }
-        .onChange(of: viewModel.showUserLocation) { showUserLocation in
+        .onChange(of: viewModel.showUserLocation) { _, showUserLocation in
             switch viewModel.mapVendor {
             case .appleMaps:
                 appleMapView.mapView.showsUserLocation = showUserLocation
@@ -121,7 +121,7 @@ struct MapContentView: View {
                 }
             }
         }
-        .onChange(of: viewModel.searchResultPlacemark) { placemark in
+        .onChange(of: viewModel.searchResultPlacemark) { _, placemark in
             guard let placemark = placemark else { return }
             switch viewModel.mapVendor {
             case .appleMaps:
@@ -132,7 +132,7 @@ struct MapContentView: View {
                 googleMapsView.showMarker(placemark)
             }
         }
-        .onChange(of: viewModel.searchCancelled) { _ in
+        .onChange(of: viewModel.searchCancelled) {
             switch viewModel.mapVendor {
             case .appleMaps:
                 appleMapView.clearMarker()
@@ -162,3 +162,4 @@ struct AppleMapsView_Previews: PreviewProvider {
         MapContentView()
     }
 }
+
