@@ -41,6 +41,11 @@ struct AppleMapsView: NSViewRepresentable {
 
         marker.coordinate = coordinate
         mapView.addAnnotation(marker)
+        
+        mapView.setRegion(MKCoordinateRegion(center: coordinate,
+                                             latitudinalMeters: 100000,
+                                             longitudinalMeters: 100000), animated: true)
+
     }
     
     func clearMarker() {
