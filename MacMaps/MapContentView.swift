@@ -153,8 +153,6 @@ struct MapContentView: View {
     
 }
 
-struct AppleMapsView_Previews: PreviewProvider {
-    static var previews: some View {
-        MapContentView()
-    }
+#Preview {
+    MapContentView()
 }
