@@ -11,7 +11,7 @@ import SwiftUI
 
 struct MapContentView: View {
 
-    @ObservedObject
+    @State
     private var viewModel = MapContentViewModel()
     
     // Map Vendors
@@ -22,135 +22,157 @@ struct MapContentView: View {
     @Environment(\.isSearching) private var isSearching: Bool
     
     var body: some View {
-        HStack {
-            switch viewModel.mapVendor {
-            case .appleMaps:
-                appleMapView
-            case .mapbox:
-                mapboxMapView
-            case .googleMaps:
-                googleMapsView
+        mapContent
+            .toolbar {
+                toolbarContent(Bindable(viewModel))
             }
-        }
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                VStack {
-                    Picker("Map Vendor", selection: $viewModel.mapVendor) {
-                        ForEach(MapContentViewModel.MapVendor.allCases, id: \.rawValue) { vendor in
-                            Text(vendor.rawValue).tag(vendor)
-                        }
-                    }
+            .searchable(text: $viewModel.searchQuery,
+                        prompt: "Search...",
+                        suggestions: {
+                ForEach(viewModel.searchSuggestions, id: \.self) { suggestion in
+                    Text(suggestion.name ?? "")
+                        .searchCompletion(suggestion.name ?? "")
+                }
+            })
+            .onSubmit(of: .search) {
+                viewModel.searchForLocation()
+            }
+            .onChange(of: viewModel.searchQuery) { _, newValue in
+                if newValue.isEmpty && !isSearching {
+                    print("Search is cancelled")
+                    viewModel.searchCancelledPublisher.send(true)
                 }
             }
-            ToolbarItem(placement: .primaryAction) {
-                VStack {
-                    switch viewModel.mapVendor {
-                    case .appleMaps:
-                        Picker("Apple Styles", selection: $viewModel.selectedAppleMapType) {
-                            ForEach(MapContentViewModel.AppleMapTypes.allCases) { mapType in
-                                Text(mapType.rawValue).tag(mapType.type)
-                            }
-                        }
-                    case .mapbox:
-                        Picker("Mapbox Styles", selection: $viewModel.selectedMapboxMapStyle) {
-                            ForEach(MapContentViewModel.MapboxStyles.allCases) { mapStyle in
-                                Text(mapStyle.rawValue).tag(mapStyle)
-                            }
-                        }
-                    case .googleMaps:
-                        Picker("Google Styles", selection: $viewModel.selectedGoogleMapStyle) {
-                            ForEach(MapContentViewModel.GoogleMapStyles.allCases) { mapStyle in
-                                Text(mapStyle.rawValue).tag(mapStyle)
-                            }
-                        }
-                    }
-                }
+            .onChange(of: viewModel.mapRegion) { _, newValue in
+                handleMapRegionChange(newValue)
             }
-            ToolbarItem(placement: .primaryAction) {
-                Button(action: {
-                    viewModel.toggleLocationMonitoring()
-                }, label: {
-                    Image(systemName: viewModel.locationButtonImageName)
-                })
+            .onChange(of: viewModel.selectedAppleMapType, handleAppleMapTypeChange)
+            .onChange(of: viewModel.selectedMapboxMapStyle, handleMapboxStyleChange)
+            .onChange(of: viewModel.selectedGoogleMapStyle, handleGoogleStyleChange)
+            .onChange(of: viewModel.showUserLocation, handleUserLocationChange)
+            .onChange(of: viewModel.searchResultPlacemark, handleSearchResultChange)
+            .onReceive(viewModel.searchCancelledPublisher) { _ in
+                handleSearchCancelled()
             }
-        }
-        .searchable(text: $viewModel.searchQuery,
-                    prompt: "Search...",
-                    suggestions: {
-            ForEach(viewModel.searchSuggestions, id: \.self) { suggestion in
-                Text(suggestion.name ?? "")
-                    .searchCompletion(suggestion.name ?? "")
-            }
-        })
-        .onSubmit(of: .search) {
-            viewModel.searchForLocation()
-        }
-        .onChange(of: viewModel.searchQuery) { _ in
-            if viewModel.searchQuery.isEmpty && !isSearching {
-                print("Search is cancelled")
-                viewModel.searchCancelledPublisher.send(true)
-            }
-        }
-        .onReceive(viewModel.$mapRegion, perform: { region in
-            switch viewModel.mapVendor {
-            case .appleMaps:
-                appleMapView.mapView.region = region
-            case .mapbox:
-                mapboxMapView.setCenter(region.center)
-            case .googleMaps:
-                googleMapsView.setCenter(region.center)
-            }
-        })
-        .onReceive(viewModel.$selectedAppleMapType, perform: { mapType in
-            appleMapView.mapView.mapType = mapType
-        })
-        .onReceive(viewModel.$selectedMapboxMapStyle, perform: { mapStyle in
-            mapboxMapView.changeMapStyle(mapStyle)
-        })
-        .onReceive(viewModel.$selectedGoogleMapStyle, perform: { mapStyle in
-            googleMapsView.changeMapStyle(mapStyle)
-        })
-        .onReceive(viewModel.$showUserLocation, perform: { showUserLocation in
-            switch viewModel.mapVendor {
-            case .appleMaps:
-                appleMapView.mapView.showsUserLocation = showUserLocation
-            case .mapbox:
-                if showUserLocation {
-                    mapboxMapView.showUserLocation(viewModel.mapRegion.center)
-                } else {
-                    mapboxMapView.hideUserLocation()
-                }
-            case .googleMaps:
-                if showUserLocation {
-                    googleMapsView.showUserLocation(viewModel.mapRegion.center)
-                } else {
-                    googleMapsView.hideUserLocation()
-                }
-            }
-        })
-        .onReceive(viewModel.$searchResultPlacemark, perform: { placemark in
-            guard let placemark = placemark else { return }
-            switch viewModel.mapVendor {
-            case .appleMaps:
-                appleMapView.showMarker(placemark)
-            case .mapbox:
-                mapboxMapView.showMarker(placemark)
-            case .googleMaps:
-                googleMapsView.showMarker(placemark)
-            }
-        })
-        .onReceive(viewModel.searchCancelledPublisher, perform: { _ in
-            switch viewModel.mapVendor {
-            case .appleMaps:
-                appleMapView.clearMarker()
-            case .mapbox:
-                mapboxMapView.clearMarker()
-            case .googleMaps:
-                googleMapsView.clearMarker()
-            }
-        })
     }
-    
+
+    @ViewBuilder
+    private var mapContent: some View {
+        switch viewModel.mapVendor {
+        case .appleMaps:
+            appleMapView
+        case .mapbox:
+            mapboxMapView
+        case .googleMaps:
+            googleMapsView
+        }
+    }
+
+    private func handleMapRegionChange(_ newValue: MKCoordinateRegion) {
+        switch viewModel.mapVendor {
+        case .appleMaps:
+            appleMapView.mapView.region = newValue
+        case .mapbox:
+            mapboxMapView.setCenter(newValue.center)
+        case .googleMaps:
+            googleMapsView.setCenter(newValue.center)
+        }
+    }
+
+    private func handleAppleMapTypeChange(_: MKMapType, _ newValue: MKMapType) {
+        appleMapView.mapView.mapType = newValue
+    }
+
+    private func handleMapboxStyleChange(_: MapContentViewModel.MapboxStyles, _ newValue: MapContentViewModel.MapboxStyles) {
+        mapboxMapView.changeMapStyle(newValue)
+    }
+
+    private func handleGoogleStyleChange(_: MapContentViewModel.GoogleMapStyles, _ newValue: MapContentViewModel.GoogleMapStyles) {
+        googleMapsView.changeMapStyle(newValue)
+    }
+
+    private func handleUserLocationChange(_: Bool, _ newValue: Bool) {
+        switch viewModel.mapVendor {
+        case .appleMaps:
+            appleMapView.mapView.showsUserLocation = newValue
+        case .mapbox:
+            if newValue {
+                mapboxMapView.showUserLocation(viewModel.mapRegion.center)
+            } else {
+                mapboxMapView.hideUserLocation()
+            }
+        case .googleMaps:
+            if newValue {
+                googleMapsView.showUserLocation(viewModel.mapRegion.center)
+            } else {
+                googleMapsView.hideUserLocation()
+            }
+        }
+    }
+
+    private func handleSearchResultChange(_: CLPlacemark?, _ newValue: CLPlacemark?) {
+        guard let placemark = newValue else { return }
+        switch viewModel.mapVendor {
+        case .appleMaps:
+            appleMapView.showMarker(placemark)
+        case .mapbox:
+            mapboxMapView.showMarker(placemark)
+        case .googleMaps:
+            googleMapsView.showMarker(placemark)
+        }
+    }
+
+    private func handleSearchCancelled() {
+        switch viewModel.mapVendor {
+        case .appleMaps:
+            appleMapView.clearMarker()
+        case .mapbox:
+            mapboxMapView.clearMarker()
+        case .googleMaps:
+            googleMapsView.clearMarker()
+        }
+    }
+
+    @ToolbarContentBuilder
+    private func toolbarContent(_ bindable: Bindable<MapContentViewModel>) -> some ToolbarContent {
+        ToolbarItem(placement: .primaryAction) {
+            Picker("Map Vendor", selection: bindable.mapVendor) {
+                ForEach(MapContentViewModel.MapVendor.allCases, id: \.rawValue) { vendor in
+                    Text(vendor.rawValue).tag(vendor)
+                }
+            }
+        }
+        ToolbarItem(placement: .primaryAction) {
+            switch viewModel.mapVendor {
+            case .appleMaps:
+                Picker("Apple Styles", selection: bindable.selectedAppleMapType) {
+                    ForEach(MapContentViewModel.AppleMapTypes.allCases) { mapType in
+                        Text(mapType.rawValue).tag(mapType.type)
+                    }
+                }
+            case .mapbox:
+                Picker("Mapbox Styles", selection: bindable.selectedMapboxMapStyle) {
+                    ForEach(MapContentViewModel.MapboxStyles.allCases) { mapStyle in
+                        Text(mapStyle.rawValue).tag(mapStyle)
+                    }
+                }
+            case .googleMaps:
+                Picker("Google Styles", selection: bindable.selectedGoogleMapStyle) {
+                    ForEach(MapContentViewModel.GoogleMapStyles.allCases) { mapStyle in
+                        Text(mapStyle.rawValue).tag(mapStyle)
+                    }
+                }
+            }
+        }
+        ToolbarItem(placement: .primaryAction) {
+            Button {
+                viewModel.toggleLocationMonitoring()
+            } label: {
+                Image(systemName: viewModel.locationButtonImageName)
+            }
+        }
+    }
+
 }
 
 #Preview {
