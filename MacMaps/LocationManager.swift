@@ -5,42 +5,46 @@
 //  Created by Brad Leege on 12/21/21.
 //
 
-import Foundation
-import Combine
 import CoreLocation
+import Observation
 
-class LocationManager: NSObject {
-    
+@MainActor
+@Observable
+class LocationManager {
+
     public static let shared = LocationManager()
-    
-    private let manager = CLLocationManager()
-    
-    var currentLocation = CurrentValueSubject<CLLocation, Never>(CLLocation(latitude: 50.45031, longitude: 30.53992))
 
-    @Published
-    var isMonitoringLocation = false
-    
-    private override init() {
-        super.init()
-        manager.delegate = self
-    }
+    private(set) var currentCoordinate = CLLocationCoordinate2D(latitude: 50.45031, longitude: 30.53992)
+    private(set) var isMonitoringLocation = false
+
+    private var monitoringTask: Task<Void, Never>?
+
+    private init() {}
 
     func startLocationMonitoring() {
         print("startLocationMonitoring")
-        if CLLocationManager.locationServicesEnabled() {
-            print("locationServicesEnabled == true")
-            manager.requestWhenInUseAuthorization()
-            isMonitoringLocation = true
-        } else {
-            print("locationServicesEnabled == false")
+        guard monitoringTask == nil else { return }
+        isMonitoringLocation = true
+        monitoringTask = Task {
+            do {
+                for try await update in CLLocationUpdate.liveUpdates() {
+                    guard !Task.isCancelled else { break }
+                    if let location = update.location {
+                        currentCoordinate = location.coordinate
+                    }
+                }
+            } catch {
+                print("Location error: \(error)")
+            }
             isMonitoringLocation = false
         }
     }
-    
+
     func stopLocationMonitoring() {
         print("stopLocationMonitoring")
-        manager.stopUpdatingLocation()
+        monitoringTask?.cancel()
+        monitoringTask = nil
         isMonitoringLocation = false
     }
-    
+
 }

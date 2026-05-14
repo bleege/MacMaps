@@ -70,7 +70,7 @@ struct AppleMapsView: NSViewRepresentable {
     
     func updateNSView(_ nsView: NSViewType, context: Context) {
         
-        mapView.setRegion(MKCoordinateRegion(center: LocationManager.shared.currentLocation.value.coordinate,
+        mapView.setRegion(MKCoordinateRegion(center: LocationManager.shared.currentCoordinate,
                                              latitudinalMeters: 100000,
                                              longitudinalMeters: 100000), animated: false)
         

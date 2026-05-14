@@ -146,20 +146,24 @@ class MapContentViewModel {
     init() {
         googleMapsKey = Bundle.main.object(forInfoDictionaryKey: "GOOGLE_MAPS_KEY") as? String ?? ""
         mapboxAccessToken = Bundle.main.object(forInfoDictionaryKey: "MAPBOX_ACCESS_TOKEN") as? String ?? ""
-        
-        LocationManager.shared.currentLocation.sink(receiveValue: { [weak self] location in
-            self?.mapRegion.center = location.coordinate
-        }).store(in: &cancellables)
-        
-        LocationManager.shared.$isMonitoringLocation.sink(receiveValue: { [weak self] isMonitoring in
-            if isMonitoring {
-                self?.locationButtonImageName = "location.fill"
-                self?.showUserLocation = true
-            } else {
-                self?.locationButtonImageName = "location.slash.fill"
-                self?.showUserLocation = false
+
+        Task { @MainActor [weak self] in
+            self?.observeLocationState()
+        }
+    }
+
+    @MainActor
+    private func observeLocationState() {
+        withObservationTracking {
+            mapRegion.center = LocationManager.shared.currentCoordinate
+            let isMonitoring = LocationManager.shared.isMonitoringLocation
+            locationButtonImageName = isMonitoring ? "location.fill" : "location.slash.fill"
+            showUserLocation = isMonitoring
+        } onChange: { [weak self] in
+            Task { @MainActor [weak self] in
+                self?.observeLocationState()
             }
-        }).store(in: &cancellables)
+        }
     }
     
     func toggleLocationMonitoring() {

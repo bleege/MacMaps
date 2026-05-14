@@ -32,7 +32,7 @@ extension MapboxMapsWebViewDelegate: WKNavigationDelegate {
 extension MapboxMapsView: MapboxMapsViewDelegate {
     
     func mapFinishedLoading() {
-        setCenter(LocationManager.shared.currentLocation.value.coordinate)
+        setCenter(LocationManager.shared.currentCoordinate)
     }
     
 }

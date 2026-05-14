@@ -32,7 +32,7 @@ extension GoogleMapsWebViewDelegate: WKNavigationDelegate {
 extension GoogleMapsView: GoogleMapsViewDelegate {
     
     func mapFinishedLoading() {
-        setCenter(LocationManager.shared.currentLocation.value.coordinate)
+        setCenter(LocationManager.shared.currentCoordinate)
         setZoom(8)
     }
     
